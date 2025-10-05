@@ -1,0 +1,3 @@
+# EnrichMed AI Symbol Prompt
+
+Design a modern, geometric symbol for EnrichMed, a medical education platform, using clean interlocking or expanding shapes that suggest knowledge growth and professional development, similar to the sophisticated minimalism of Netomi or modern app icons. Use Signal Blue (#526ff5) as the primary color with simple geometric forms that avoid traditional medical symbols like stethoscopes or crosses. The symbol must be scalable from app icon size (32px) to large applications, conveying innovation and medical expertise through precise, modular geometry.

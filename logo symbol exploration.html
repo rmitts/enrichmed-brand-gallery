@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnrichMed Icon Variations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8fafc;
+            padding: 40px 20px;
+            color: #1C1A33;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .design-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .icon-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            margin-bottom: 25px;
+        }
+
+        .design-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1C1A33;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .design-description {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        /* Navigation Styles */
+        .navigation {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(82, 111, 245, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 70px;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #1c1a33;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .nav-brand-text {
+            color: #1c1a33;
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            color: #1c1a33;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .nav-dropdown-btn:hover {
+            background: rgba(82, 111, 245, 0.1);
+            color: #526ff5;
+        }
+        
+        .nav-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dropdown:hover .nav-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .nav-dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(82, 111, 245, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .nav-dropdown:hover .nav-dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 4px 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(82, 111, 245, 0.1);
+            color: #526ff5;
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(135deg, #526ff5 0%, #7FB8E5 100%);
+            color: white;
+        }
+        
+        .nav-link.active:hover {
+            background: linear-gradient(135deg, #4158d0 0%, #6ba3d6 100%);
+            transform: translateX(5px);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #526ff5;
+            margin: 3px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            .nav-brand-text {
+                display: none;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="navLogo" x1="0%" y1="50%" x2="100%" y2="50%">
+                            <stop offset="0%" style="stop-color:#7FB8E5"/>
+                            <stop offset="50%" style="stop-color:#526ff5"/>
+                            <stop offset="100%" style="stop-color:#5DCAE3"/>
+                        </linearGradient>
+                    </defs>
+                    <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#navLogo)" opacity="0.15"/>
+                    <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#navLogo)" opacity="0.15"/>
+                    <path d="M 100 40 A 60 60 0 0 1 160 100 L 140 100 A 40 40 0 0 0 100 60 Z" fill="#7FB8E5" opacity="0.9"/>
+                    <path d="M 160 100 A 60 60 0 0 1 100 160 L 100 140 A 40 40 0 0 0 140 100 Z" fill="#5DCAE3" opacity="0.9"/>
+                    <path d="M 100 160 A 60 60 0 0 1 40 100 L 60 100 A 40 40 0 0 0 100 140 Z" fill="#526ff5" opacity="0.9"/>
+                    <path d="M 40 100 A 60 60 0 0 1 100 40 L 100 60 A 40 40 0 0 0 60 100 Z" fill="#64B5F6" opacity="0.9"/>
+                    <path d="M 100 80 L 100 95" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="100" cy="95" r="5" fill="#ffffff"/>
+                </svg>
+                <span class="nav-brand-text">EnrichMed Brand Gallery</span>
+            </div>
+            <div class="nav-links">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Logo Variations <span class="nav-arrow">▼</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="index.html" class="nav-link">Main Logo Package</a>
+                        <a href="symbol-variations.html" class="nav-link">Symbol Variations Explorer</a>
+                        <a href="logo symbol exploration.html" class="nav-link active">Logo Symbol Exploration</a>
+                        <a href="enrichmed_final_logo_package.html" class="nav-link">Final Logo Package</a>
+                        <a href="hybrid_concept_preview.html" class="nav-link">Hybrid Concept Preview</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Design Tools <span class="nav-arrow">▼</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="Interactive logo design tool .html" class="nav-link">Interactive Design Tool</a>
+                        <a href="Logo Refinement Tool .html" class="nav-link">Logo Refinement Tool</a>
+                        <a href="color_palette_preview.html" class="nav-link">Color Palette Preview</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Concepts <span class="nav-arrow">▼</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="Geometric Growth Hybrid.html" class="nav-link">Geometric Growth Hybrid</a>
+                        <a href="pulmonary_nodule_management.html" class="nav-link">Medical Applications</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="designs-grid">
+            
+            <!-- Design 1: Branching Pathways -->
+            <div class="design-card">
+                <div class="icon-display">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="pathGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#5DCAE3"/>
+                                <stop offset="50%" style="stop-color:#7FB8E5"/>
+                                <stop offset="100%" style="stop-color:#526FF5"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Main trunk -->
+                        <rect x="47" y="60" width="6" height="30" fill="#526FF5"/>
+                        <!-- Primary branches -->
+                        <rect x="47" y="45" width="6" height="20" fill="#7FB8E5"/>
+                        <rect x="32" y="45" width="20" height="4" fill="#7FB8E5"/>
+                        <rect x="48" y="45" width="20" height="4" fill="#7FB8E5"/>
+                        <!-- Secondary branches -->
+                        <rect x="30" y="35" width="4" height="12" fill="#5DCAE3"/>
+                        <rect x="66" y="35" width="4" height="12" fill="#5DCAE3"/>
+                        <!-- Tertiary branches -->
+                        <rect x="20" y="25" width="4" height="12" fill="#64B5F6" opacity="0.8"/>
+                        <rect x="76" y="25" width="4" height="12" fill="#64B5F6" opacity="0.8"/>
+                        <rect x="40" y="25" width="4" height="12" fill="#64B5F6" opacity="0.8"/>
+                        <rect x="56" y="25" width="4" height="12" fill="#64B5F6" opacity="0.8"/>
+                        <!-- Growth nodes -->
+                        <circle cx="22" cy="23" r="3" fill="#526FF5"/>
+                        <circle cx="42" cy="23" r="3" fill="#526FF5"/>
+                        <circle cx="58" cy="23" r="3" fill="#526FF5"/>
+                        <circle cx="78" cy="23" r="3" fill="#526FF5"/>
+                        <circle cx="32" cy="33" r="2.5" fill="#526FF5"/>
+                        <circle cx="68" cy="33" r="2.5" fill="#526FF5"/>
+                        <circle cx="50" cy="43" r="2" fill="white" stroke="#526FF5" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <h3 class="design-title">Branching Pathways</h3>
+                <p class="design-description">Pulmonary airways abstracted into educational pathways, showing how knowledge branches and expands from core concepts to specialized expertise.</p>
+            </div>
+
+            <!-- Design 2: Layered Progression -->
+            <div class="design-card">
+                <div class="icon-display">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="layerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#526FF5"/>
+                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Base layer -->
+                        <path d="M20 75 L50 75 L80 75 L80 85 L50 85 L20 85 Z" fill="#5DCAE3" opacity="0.4"/>
+                        <!-- Second layer -->
+                        <path d="M25 60 L50 60 L75 60 L75 70 L50 70 L25 70 Z" fill="#64B5F6" opacity="0.5"/>
+                        <!-- Third layer -->
+                        <path d="M30 45 L50 45 L70 45 L70 55 L50 55 L30 55 Z" fill="#7FB8E5" opacity="0.6"/>
+                        <!-- Fourth layer -->
+                        <path d="M35 30 L50 30 L65 30 L65 40 L50 40 L35 40 Z" fill="#526FF5" opacity="0.8"/>
+                        <!-- Peak -->
+                        <path d="M40 15 L50 10 L60 15 L60 25 L50 25 L40 25 Z" fill="#526FF5"/>
+                        <!-- Connecting elements -->
+                        <circle cx="50" cy="80" r="2" fill="white"/>
+                        <circle cx="50" cy="65" r="2" fill="white"/>
+                        <circle cx="50" cy="50" r="2" fill="white"/>
+                        <circle cx="50" cy="35" r="2" fill="white"/>
+                        <circle cx="50" cy="20" r="3" fill="white"/>
+                        <!-- Vertical connector -->
+                        <rect x="49" y="20" width="2" height="60" fill="white" opacity="0.5"/>
+                    </svg>
+                </div>
+                <h3 class="design-title">Layered Progression</h3>
+                <p class="design-description">Stacked learning modules building upon each other, representing the structured curriculum from foundational to advanced pulmonary expertise.</p>
+            </div>
+
+            <!-- Design 3: Knowledge Constellation -->
+            <div class="design-card">
+                <div class="icon-display">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <!-- Central hub -->
+                        <circle cx="50" cy="50" r="8" fill="#526FF5"/>
+                        <!-- Primary nodes -->
+                        <circle cx="50" cy="25" r="5" fill="#7FB8E5"/>
+                        <circle cx="70" cy="40" r="5" fill="#7FB8E5"/>
+                        <circle cx="70" cy="60" r="5" fill="#7FB8E5"/>
+                        <circle cx="50" cy="75" r="5" fill="#7FB8E5"/>
+                        <circle cx="30" cy="60" r="5" fill="#7FB8E5"/>
+                        <circle cx="30" cy="40" r="5" fill="#7FB8E5"/>
+                        <!-- Secondary nodes -->
+                        <circle cx="35" cy="20" r="3" fill="#5DCAE3"/>
+                        <circle cx="65" cy="20" r="3" fill="#5DCAE3"/>
+                        <circle cx="80" cy="50" r="3" fill="#5DCAE3"/>
+                        <circle cx="65" cy="80" r="3" fill="#5DCAE3"/>
+                        <circle cx="35" cy="80" r="3" fill="#5DCAE3"/>
+                        <circle cx="20" cy="50" r="3" fill="#5DCAE3"/>
+                        <!-- Connections -->
+                        <line x1="50" y1="50" x2="50" y2="25" stroke="#1C1A33" stroke-width="1.5" opacity="0.2"/>
+                        <line x1="50" y1="50" x2="70" y2="40" stroke="#1C1A33" stroke-width="1.5" opacity="0.2"/>
+                        <line x1="50" y1="50" x2="70" y2="60" stroke="#1C1A33" stroke-width="1.5" opacity="0.2"/>
+                        <line x1="50" y1="50" x2="50" y2="75" stroke="#1C1A33" stroke-width="1.5" opacity="0.2"/>
+                        <line x1="50" y1="50" x2="30" y2="60" stroke="#1C1A33" stroke-width="1.5" opacity="0.2"/>
+                        <line x1="50" y1="50" x2="30" y2="40" stroke="#1C1A33" stroke-width="1.5" opacity="0.2"/>
+                        <!-- Outer connections -->
+                        <line x1="50" y1="25" x2="35" y2="20" stroke="#1C1A33" stroke-width="1" opacity="0.1"/>
+                        <line x1="50" y1="25" x2="65" y2="20" stroke="#1C1A33" stroke-width="1" opacity="0.1"/>
+                        <line x1="70" y1="40" x2="80" y2="50" stroke="#1C1A33" stroke-width="1" opacity="0.1"/>
+                        <line x1="70" y1="60" x2="80" y2="50" stroke="#1C1A33" stroke-width="1" opacity="0.1"/>
+                        <!-- Center dot -->
+                        <circle cx="50" cy="50" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <h3 class="design-title">Knowledge Constellation</h3>
+                <p class="design-description">Interconnected learning nodes radiating from a central core, representing the network effect of comprehensive medical education.</p>
+            </div>
+
+            <!-- Design 4: Ascending Helix -->
+            <div class="design-card">
+                <div class="icon-display">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="helixGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#5DCAE3"/>
+                                <stop offset="100%" style="stop-color:#526FF5"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Helix strands -->
+                        <path d="M30 80 Q35 70 40 60 Q45 50 50 40 Q55 30 60 20" stroke="#526FF5" stroke-width="3" fill="none"/>
+                        <path d="M70 80 Q65 70 60 60 Q55 50 50 40 Q45 30 40 20" stroke="#7FB8E5" stroke-width="3" fill="none"/>
+                        <!-- Connection bars -->
+                        <rect x="35" y="70" width="30" height="2" fill="#5DCAE3" opacity="0.6"/>
+                        <rect x="40" y="55" width="20" height="2" fill="#64B5F6" opacity="0.6"/>
+                        <rect x="45" y="40" width="10" height="2" fill="#7FB8E5" opacity="0.6"/>
+                        <rect x="42" y="25" width="16" height="2" fill="#526FF5" opacity="0.6"/>
+                        <!-- Progress nodes -->
+                        <circle cx="35" cy="71" r="3" fill="#5DCAE3"/>
+                        <circle cx="65" cy="71" r="3" fill="#5DCAE3"/>
+                        <circle cx="40" cy="56" r="3" fill="#64B5F6"/>
+                        <circle cx="60" cy="56" r="3" fill="#64B5F6"/>
+                        <circle cx="45" cy="41" r="3" fill="#7FB8E5"/>
+                        <circle cx="55" cy="41" r="3" fill="#7FB8E5"/>
+                        <circle cx="42" cy="26" r="3" fill="#526FF5"/>
+                        <circle cx="58" cy="26" r="3" fill="#526FF5"/>
+                        <!-- Peak indicator -->
+                        <circle cx="50" cy="15" r="4" fill="#526FF5"/>
+                        <circle cx="50" cy="15" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <h3 class="design-title">Ascending Helix</h3>
+                <p class="design-description">DNA-inspired double helix representing the building blocks of medical knowledge, spiraling upward toward expertise.</p>
+            </div>
+
+            <!-- Design 5: Modular Grid -->
+            <div class="design-card">
+                <div class="icon-display">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <!-- Grid modules -->
+                        <rect x="20" y="20" width="18" height="18" rx="2" fill="#526FF5" opacity="0.3"/>
+                        <rect x="41" y="20" width="18" height="18" rx="2" fill="#526FF5" opacity="0.5"/>
+                        <rect x="62" y="20" width="18" height="18" rx="2" fill="#526FF5" opacity="0.7"/>
+                        
+                        <rect x="20" y="41" width="18" height="18" rx="2" fill="#7FB8E5" opacity="0.5"/>
+                        <rect x="41" y="41" width="18" height="18" rx="2" fill="#7FB8E5" opacity="0.7"/>
+                        <rect x="62" y="41" width="18" height="18" rx="2" fill="#7FB8E5" opacity="0.9"/>
+                        
+                        <rect x="20" y="62" width="18" height="18" rx="2" fill="#5DCAE3" opacity="0.7"/>
+                        <rect x="41" y="62" width="18" height="18" rx="2" fill="#5DCAE3" opacity="0.9"/>
+                        <rect x="62" y="62" width="18" height="18" rx="2" fill="#5DCAE3"/>
+                        
+                        <!-- Progress indicator -->
+                        <path d="M29 71 L50 50 L71 29" stroke="#526FF5" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <!-- Active modules -->
+                        <circle cx="29" cy="71" r="2" fill="white"/>
+                        <circle cx="50" cy="50" r="2" fill="white"/>
+                        <circle cx="71" cy="29" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <h3 class="design-title">Modular Grid</h3>
+                <p class="design-description">Nine-module system showing progressive mastery, with diagonal advancement path representing the journey through comprehensive curriculum.</p>
+            </div>
+
+            <!-- Design 6: Pulse Wave -->
+            <div class="design-card">
+                <div class="icon-display">
+                    <svg width="150" height="150" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="pulseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#5DCAE3"/>
+                                <stop offset="50%" style="stop-color:#7FB8E5"/>
+                                <stop offset="100%" style="stop-color:#526FF5"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Baseline -->
+                        <line x1="10" y1="50" x2="90" y2="50" stroke="#e2e8f0" stroke-width="2"/>
+                        <!-- Pulse line -->
+                        <path d="M15 50 L25 50 L30 60 L35 30 L40 70 L45 20 L50 80 L55 25 L60 65 L65 35 L70 50 L80 50 L90 50" 
+                              stroke="url(#pulseGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <!-- Key points -->
+                        <circle cx="35" cy="30" r="3" fill="#526FF5"/>
+                        <circle cx="45" cy="20" r="4" fill="#526FF5"/>
+                        <circle cx="55" cy="25" r="3" fill="#7FB8E5"/>
+                        <circle cx="50" cy="80" r="5" fill="#5DCAE3"/>
+                        <!-- Vertical progression bars -->
+                        <rect x="32" y="50" width="2" height="20" fill="#5DCAE3" opacity="0.3"/>
+                        <rect x="42" y="50" width="2" height="30" fill="#64B5F6" opacity="0.3"/>
+                        <rect x="52" y="50" width="2" height="25" fill="#7FB8E5" opacity="0.3"/>
+                        <rect x="62" y="50" width="2" height="15" fill="#526FF5" opacity="0.3"/>
+                    </svg>
+                </div>
+                <h3 class="design-title">Pulse Wave</h3>
+                <p class="design-description">Vital signs motif representing the pulse of medical education, with peaks showing breakthrough moments in learning progression.</p>
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        // Mobile menu toggle functionality
+        function toggleMobileMenu() {
+            // This is a placeholder for mobile menu functionality
+            // In a full implementation, you'd toggle a mobile menu here
+            alert('Mobile menu functionality can be implemented here');
+        }
+        
+        // Add active state to navigation based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

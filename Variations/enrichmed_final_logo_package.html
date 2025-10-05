@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnrichMed Logo Package - Final Deliverables</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: #1c1a33;
+            line-height: 1.6;
+        }
+        
+        .package-header {
+            background: linear-gradient(135deg, #526ff5 0%, #7FB8E5 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .package-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .package-header p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .section {
+            background: white;
+            margin: 40px 0;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+        
+        .section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1c1a33;
+            border-bottom: 3px solid #526ff5;
+            padding-bottom: 15px;
+        }
+        
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .logo-item {
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-item:hover {
+            border-color: #526ff5;
+            transform: translateY(-4px);
+        }
+        
+        .logo-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1c1a33;
+        }
+        
+        .logo-display {
+            margin: 30px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-combo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 32px;
+            color: #1c1a33;
+        }
+        
+        .stacked-combo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .download-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #1565c0;
+        }
+        
+        .color-variations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .color-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .color-white { background: #ffffff; }
+        .color-dark { background: #1c1a33; color: white; }
+        .color-blue { background: #526ff5; color: white; }
+        .color-light { background: #f8f9fa; }
+        
+        .size-showcase {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .size-item {
+            text-align: center;
+        }
+        
+        .size-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        
+        .app-icon {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            margin: 0 auto 8px auto;
+        }
+        
+        .app-icon.dark { background: #1c1a33; border-color: #2a2845; }
+        .app-icon.blue { background: #526ff5; border-color: #4158d0; }
+        
+        .icon-16 { width: 16px; height: 16px; }
+        .icon-32 { width: 32px; height: 32px; }
+        .icon-48 { width: 48px; height: 48px; }
+        .icon-64 { width: 64px; height: 64px; }
+        .icon-128 { width: 128px; height: 128px; }
+        
+        .brand-guidelines {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin-top: 30px;
+        }
+        
+        .guidelines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .guideline-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        }
+        
+        .guideline-item h4 {
+            color: #526ff5;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .guideline-item ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .guideline-item li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f1f3;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .guideline-item li:last-child {
+            border-bottom: none;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .social-platform {
+            text-align: center;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .social-platform h4 {
+            color: #1c1a33;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .social-sizes {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .social-size {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        .download-section {
+            background: linear-gradient(135deg, #526ff5 0%, #7FB8E5 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .download-section h2 {
+            color: white;
+            border: none;
+            margin-bottom: 20px;
+            padding-bottom: 0;
+        }
+        
+        .file-formats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .file-format {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .file-format h4 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .file-format p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="package-header">
+        <h1>EnrichMed</h1>
+        <p>Complete Logo Package & Brand Guidelines</p>
+    </div>
+
+    <div class="container">
+        
+        <!-- Primary Logo Variations -->
+        <div class="section">
+            <h2>Primary Logo Variations</h2>
+            <div class="logo-grid">
+                
+                <!-- Horizontal Logo -->
+                <div class="logo-item">
+                    <h3>Horizontal Layout</h3>
+                    <div class="logo-display">
+                        <div class="logo-combo">
+                            <svg width="70" height="70" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="primaryHorz" x1="0%" y1="50%" x2="100%" y2="50%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                </defs>
+                                
+                                <!-- Knowledge Layers -->
+                                <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#primaryHorz)" opacity="0.3"/>
+                                <ellipse cx="100" cy="100" rx="55" ry="27" fill="url(#primaryHorz)" opacity="0.5"/>
+                                <ellipse cx="100" cy="100" rx="40" ry="20" fill="url(#primaryHorz)" opacity="0.7"/>
+                                
+                                <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#primaryHorz)" opacity="0.3"/>
+                                <ellipse cx="100" cy="100" rx="27" ry="55" fill="url(#primaryHorz)" opacity="0.5"/>
+                                <ellipse cx="100" cy="100" rx="20" ry="40" fill="url(#primaryHorz)" opacity="0.7"/>
+                                
+                                <!-- Subtle Airway Flow -->
+                                <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+                                <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                                <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <circle cx="100" cy="95" r="4" fill="#ffffff" opacity="0.9"/>
+                            </svg>
+                            <span class="logo-text">EnrichMed</span>
+                        </div>
+                    </div>
+                    <div class="download-info">
+                        <strong>Best for:</strong> Website headers, business cards, letterhead, email signatures
+                    </div>
+                </div>
+
+                <!-- Stacked Logo -->
+                <div class="logo-item">
+                    <h3>Stacked Layout</h3>
+                    <div class="logo-display">
+                        <div class="stacked-combo">
+                            <svg width="80" height="80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="primaryStack" x1="0%" y1="50%" x2="100%" y2="50%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                </defs>
+                                
+                                <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#primaryStack)" opacity="0.3"/>
+                                <ellipse cx="100" cy="100" rx="55" ry="27" fill="url(#primaryStack)" opacity="0.5"/>
+                                <ellipse cx="100" cy="100" rx="40" ry="20" fill="url(#primaryStack)" opacity="0.7"/>
+                                
+                                <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#primaryStack)" opacity="0.3"/>
+                                <ellipse cx="100" cy="100" rx="27" ry="55" fill="url(#primaryStack)" opacity="0.5"/>
+                                <ellipse cx="100" cy="100" rx="20" ry="40" fill="url(#primaryStack)" opacity="0.7"/>
+                                
+                                <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+                                <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                                <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <circle cx="100" cy="95" r="4" fill="#ffffff" opacity="0.9"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 24px;">EnrichMed</span>
+                        </div>
+                    </div>
+                    <div class="download-info">
+                        <strong>Best for:</strong> Square social media profiles, app store listings, square advertisements
+                    </div>
+                </div>
+
+                <!-- Icon Only -->
+                <div class="logo-item">
+                    <h3>Symbol Only</h3>
+                    <div class="logo-display">
+                        <svg width="90" height="90" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="primaryIcon" x1="0%" y1="50%" x2="100%" y2="50%">
+                                    <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="50%" style="stop-color:#526ff5"/>
+                                    <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                </linearGradient>
+                            </defs>
+                            
+                            <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#primaryIcon)" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="55" ry="27" fill="url(#primaryIcon)" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="40" ry="20" fill="url(#primaryIcon)" opacity="0.7"/>
+                            
+                            <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#primaryIcon)" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="27" ry="55" fill="url(#primaryIcon)" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="20" ry="40" fill="url(#primaryIcon)" opacity="0.7"/>
+                            
+                            <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+                            <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                            <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                            <circle cx="100" cy="95" r="4" fill="#ffffff" opacity="0.9"/>
+                        </svg>
+                    </div>
+                    <div class="download-info">
+                        <strong>Best for:</strong> App icons, favicons, watermarks, small space applications
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Variations -->
+        <div class="section">
+            <h2>Color Variations</h2>
+            <div class="color-variations">
+                
+                <div class="color-item color-white">
+                    <h4>Full Color on White</h4>
+                    <div class="logo-combo" style="margin: 20px 0;">
+                        <svg width="50" height="50" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="colorWhite" x1="0%" y1="50%" x2="100%" y2="50%">
+                                    <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="50%" style="stop-color:#526ff5"/>
+                                    <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                </linearGradient>
+                            </defs>
+                            <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#colorWhite)" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="55" ry="27" fill="url(#colorWhite)" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="40" ry="20" fill="url(#colorWhite)" opacity="0.7"/>
+                            <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#colorWhite)" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="27" ry="55" fill="url(#colorWhite)" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="20" ry="40" fill="url(#colorWhite)" opacity="0.7"/>
+                            <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="100" cy="95" r="4" fill="#ffffff"/>
+                        </svg>
+                        <span style="font-family: Inter; font-weight: 600; font-size: 18px; color: #1c1a33;">EnrichMed</span>
+                    </div>
+                    <p style="font-size: 12px; color: #666;">Primary version for most applications</p>
+                </div>
+
+                <div class="color-item color-dark">
+                    <h4 style="color: white;">Full Color on Dark</h4>
+                    <div class="logo-combo" style="margin: 20px 0;">
+                        <svg width="50" height="50" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="colorDark" x1="0%" y1="50%" x2="100%" y2="50%">
+                                    <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="50%" style="stop-color:#526ff5"/>
+                                    <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                </linearGradient>
+                            </defs>
+                            <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#colorDark)" opacity="0.4"/>
+                            <ellipse cx="100" cy="100" rx="55" ry="27" fill="url(#colorDark)" opacity="0.6"/>
+                            <ellipse cx="100" cy="100" rx="40" ry="20" fill="url(#colorDark)" opacity="0.8"/>
+                            <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#colorDark)" opacity="0.4"/>
+                            <ellipse cx="100" cy="100" rx="27" ry="55" fill="url(#colorDark)" opacity="0.6"/>
+                            <ellipse cx="100" cy="100" rx="20" ry="40" fill="url(#colorDark)" opacity="0.8"/>
+                            <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="100" cy="95" r="4" fill="#ffffff"/>
+                        </svg>
+                        <span style="font-family: Inter; font-weight: 600; font-size: 18px; color: white;">EnrichMed</span>
+                    </div>
+                    <p style="font-size: 12px; opacity: 0.8;">For dark backgrounds and themes</p>
+                </div>
+
+                <div class="color-item color-white">
+                    <h4>Single Color (Blue)</h4>
+                    <div class="logo-combo" style="margin: 20px 0;">
+                        <svg width="50" height="50" viewBox="0 0 200 200">
+                            <ellipse cx="100" cy="100" rx="70" ry="35" fill="#526ff5" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="55" ry="27" fill="#526ff5" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="40" ry="20" fill="#526ff5" opacity="0.7"/>
+                            <ellipse cx="100" cy="100" rx="35" ry="70" fill="#526ff5" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="27" ry="55" fill="#526ff5" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="20" ry="40" fill="#526ff5" opacity="0.7"/>
+                            <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="100" cy="95" r="4" fill="#ffffff"/>
+                        </svg>
+                        <span style="font-family: Inter; font-weight: 600; font-size: 18px; color: #526ff5;">EnrichMed</span>
+                    </div>
+                    <p style="font-size: 12px; color: #666;">Single color printing</p>
+                </div>
+
+                <div class="color-item color-white">
+                    <h4>Black & White</h4>
+                    <div class="logo-combo" style="margin: 20px 0;">
+                        <svg width="50" height="50" viewBox="0 0 200 200">
+                            <ellipse cx="100" cy="100" rx="70" ry="35" fill="#1c1a33" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="55" ry="27" fill="#1c1a33" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="40" ry="20" fill="#1c1a33" opacity="0.7"/>
+                            <ellipse cx="100" cy="100" rx="35" ry="70" fill="#1c1a33" opacity="0.3"/>
+                            <ellipse cx="100" cy="100" rx="27" ry="55" fill="#1c1a33" opacity="0.5"/>
+                            <ellipse cx="100" cy="100" rx="20" ry="40" fill="#1c1a33" opacity="0.7"/>
+                            <path d="M 100 75 L 100 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M 88 108 L 82 118 M 112 108 L 118 118" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="100" cy="95" r="4" fill="#ffffff"/>
+                        </svg>
+                        <span style="font-family: Inter; font-weight: 600; font-size: 18px; color: #1c1a33;">EnrichMed</span>
+                    </div>
+                    <p style="font-size: 12px; color: #666;">Monochrome applications</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Size Demonstrations -->
+        <div class="section">
+            <h2>Size & Scalability</h2>
+            <p style="color: #666; margin-bottom: 30px;">Logo performance at various sizes, from favicon to billboard</p>
+            
+            <div class="size-showcase">
+                <div class="size-item">
+                    <div class="app-icon icon-16">
+                        <svg width="12" height="12" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="size16" x1="0%" y1="50%" x2="100%" y2="50%">
+                                    <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="50%" style="stop-color:#526ff5"/>
+                                    <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                </linearGradient>
+                            </defs>
+                            <ellipse cx="100" cy="100" rx="65" ry="32" fill="url(#size16)" opacity="0.6"/>
+                            <ellipse cx="100" cy="100" rx="32" ry="65" fill="url(#size16)" opacity="0.6"/>
+                            <circle cx="100" cy="100" r="15" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                    <div class="size-label">16px<br>Favicon</div>
+                </div>
+                
+                <div class="size-item">
+                    <div class="app-icon icon-32">
+                        <svg width="24" height="24" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="size32" x1="0%" y1="50%" x2="100%" y2="50%">
+                                    <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="50%" style="stop-color:#526ff5"/>
+                                    <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                </linearGradient>
+                            </defs>
+                            <ellipse cx="100" cy="100" rx="65" ry="32" fill="url(#size32)" opacity="0.4"/>
+                            <ellipse cx="100" cy="100" rx="45" ry="22" fill="url(#size32)" opacity="0.7"/>
+                            <ellipse cx="100" cy="100" rx="32" ry="65" fill="url(#size32)" opacity="0.4"/>
+                            <ellipse cx="100" cy="100" rx="22" ry="45" fill="url(#size32)" opacity="0.7"/>
+                            <path d="M 100 85 L 100 95 L 92 105 M 100 95 L 108 105" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    

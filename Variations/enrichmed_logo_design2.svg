@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnrichMed Final Logo Concepts</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1c1a33;
+            margin-bottom: 50px;
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        .logo-section {
+            background: white;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .logo-header {
+            background: linear-gradient(135deg, #526ff5 0%, #7FB8E5 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .logo-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .logo-header p {
+            margin: 8px 0 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .logo-content {
+            padding: 40px;
+        }
+        
+        .logo-variations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .variation-card {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid #f0f1f3;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .variation-card:hover {
+            border-color: #526ff5;
+            transform: translateY(-2px);
+        }
+        
+        .variation-title {
+            font-weight: 600;
+            color: #1c1a33;
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .variation-desc {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-combo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 28px;
+            color: #1c1a33;
+        }
+        
+        .size-demos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .size-demo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .size-label {
+            font-size: 12px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .app-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .app-icon.small { width: 32px; height: 32px; }
+        .app-icon.medium { width: 48px; height: 48px; }
+        .app-icon.large { width: 64px; height: 64px; }
+        
+        .backgrounds {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .bg-demo {
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bg-white { background: #ffffff; border: 1px solid #e9ecef; }
+        .bg-dark { background: #1c1a33; }
+        .bg-blue { background: #526ff5; }
+        .bg-light { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EnrichMed Final Logo Concepts</h1>
+        
+        <!-- Triple Flow Logo -->
+        <div class="logo-section">
+            <div class="logo-header">
+                <h2>Triple Flow</h2>
+                <p>Overlapping knowledge layers representing comprehensive medical education</p>
+            </div>
+            <div class="logo-content">
+                <div class="logo-variations">
+                    <!-- Primary Combination -->
+                    <div class="variation-card">
+                        <div class="variation-title">Primary Logo</div>
+                        <div class="variation-desc">Main combination mark</div>
+                        <div class="logo-combo">
+                            <svg width="60" height="60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="tripleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGrad)" opacity="0.9"/>
+                                <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGrad)" opacity="0.7"/>
+                                <circle cx="100" cy="90" r="6" fill="#ffffff"/>
+                                <circle cx="140" cy="110" r="6" fill="#ffffff"/>
+                                <circle cx="60" cy="110" r="6" fill="#ffffff"/>
+                            </svg>
+                            <span class="logo-text">EnrichMed</span>
+                        </div>
+                        <div class="size-demos">
+                            <div class="size-demo">
+                                <div class="app-icon small">
+                                    <svg width="20" height="20" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="tripleGradS1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                                <stop offset="50%" style="stop-color:#526ff5"/>
+                                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGradS1)" opacity="0.9"/>
+                                        <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGradS1)" opacity="0.7"/>
+                                    </svg>
+                                </div>
+                                <span class="size-label">32px</span>
+                            </div>
+                            <div class="size-demo">
+                                <div class="app-icon medium">
+                                    <svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="tripleGradM1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                                <stop offset="50%" style="stop-color:#526ff5"/>
+                                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGradM1)" opacity="0.9"/>
+                                        <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGradM1)" opacity="0.7"/>
+                                        <circle cx="100" cy="90" r="4" fill="#ffffff"/>
+                                    </svg>
+                                </div>
+                                <span class="size-label">48px</span>
+                            </div>
+                            <div class="size-demo">
+                                <div class="app-icon large">
+                                    <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="tripleGradL1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                                <stop offset="50%" style="stop-color:#526ff5"/>
+                                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGradL1)" opacity="0.9"/>
+                                        <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGradL1)" opacity="0.7"/>
+                                        <circle cx="100" cy="90" r="6" fill="#ffffff"/>
+                                        <circle cx="140" cy="110" r="6" fill="#ffffff"/>
+                                        <circle cx="60" cy="110" r="6" fill="#ffffff"/>
+                                    </svg>
+                                </div>
+                                <span class="size-label">64px</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stacked Version -->
+                    <div class="variation-card">
+                        <div class="variation-title">Stacked Version</div>
+                        <div class="variation-desc">For square applications</div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <svg width="60" height="60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="tripleGradStacked" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGradStacked)" opacity="0.9"/>
+                                <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGradStacked)" opacity="0.7"/>
+                                <circle cx="100" cy="90" r="6" fill="#ffffff"/>
+                                <circle cx="140" cy="110" r="6" fill="#ffffff"/>
+                                <circle cx="60" cy="110" r="6" fill="#ffffff"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 20px;">EnrichMed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="backgrounds">
+                    <div class="bg-demo bg-white">
+                        <div class="logo-combo">
+                            <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="tripleGradW" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGradW)" opacity="0.9"/>
+                                <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGradW)" opacity="0.7"/>
+                                <circle cx="100" cy="90" r="6" fill="#ffffff"/>
+                                <circle cx="140" cy="110" r="6" fill="#ffffff"/>
+                                <circle cx="60" cy="110" r="6" fill="#ffffff"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 18px;">EnrichMed</span>
+                        </div>
+                    </div>
+                    <div class="bg-demo bg-dark">
+                        <div class="logo-combo">
+                            <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="tripleGradD" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 40 80 Q 80 40, 120 80 Q 80 120, 40 80" fill="url(#tripleGradD)" opacity="0.9"/>
+                                <path d="M 80 100 Q 120 60, 160 100 Q 120 140, 80 100" fill="url(#tripleGradD)" opacity="0.7"/>
+                                <circle cx="100" cy="90" r="6" fill="#ffffff"/>
+                                <circle cx="140" cy="110" r="6" fill="#ffffff"/>
+                                <circle cx="60" cy="110" r="6" fill="#ffffff"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 18px; color: white;">EnrichMed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Breathing Flow Logo -->
+        <div class="logo-section">
+            <div class="logo-header">
+                <h2>Breathing Flow</h2>
+                <p>Pulmonary-inspired design representing respiratory expertise and holistic care</p>
+            </div>
+            <div class="logo-content">
+                <div class="logo-variations">
+                    <!-- Primary Combination -->
+                    <div class="variation-card">
+                        <div class="variation-title">Primary Logo</div>
+                        <div class="variation-desc">Main combination mark</div>
+                        <div class="logo-combo">
+                            <svg width="60" height="60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="breathGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                    <radialGradient id="breathRadial" cx="50%" cy="50%">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="100%" style="stop-color:#526ff5"/>
+                                    </radialGradient>
+                                </defs>
+                                <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGrad)" opacity="0.8"/>
+                                <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGrad)" opacity="0.6"/>
+                                <circle cx="100" cy="100" r="18" fill="url(#breathRadial)" opacity="0.9"/>
+                            </svg>
+                            <span class="logo-text">EnrichMed</span>
+                        </div>
+                        <div class="size-demos">
+                            <div class="size-demo">
+                                <div class="app-icon small">
+                                    <svg width="20" height="20" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="breathGradS" x1="0%" y1="50%" x2="100%" y2="50%">
+                                                <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                                <stop offset="50%" style="stop-color:#526ff5"/>
+                                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGradS)" opacity="0.9"/>
+                                        <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGradS)" opacity="0.7"/>
+                                        <circle cx="100" cy="100" r="18" fill="#ffffff"/>
+                                    </svg>
+                                </div>
+                                <span class="size-label">32px</span>
+                            </div>
+                            <div class="size-demo">
+                                <div class="app-icon medium">
+                                    <svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="breathGradM" x1="0%" y1="50%" x2="100%" y2="50%">
+                                                <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                                <stop offset="50%" style="stop-color:#526ff5"/>
+                                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGradM)" opacity="0.9"/>
+                                        <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGradM)" opacity="0.7"/>
+                                        <circle cx="100" cy="100" r="18" fill="#ffffff"/>
+                                    </svg>
+                                </div>
+                                <span class="size-label">48px</span>
+                            </div>
+                            <div class="size-demo">
+                                <div class="app-icon large">
+                                    <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="breathGradL" x1="0%" y1="50%" x2="100%" y2="50%">
+                                                <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                                <stop offset="50%" style="stop-color:#526ff5"/>
+                                                <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                            </linearGradient>
+                                            <radialGradient id="breathRadialL" cx="50%" cy="50%">
+                                                <stop offset="0%" style="stop-color:#ffffff"/>
+                                                <stop offset="100%" style="stop-color:#526ff5"/>
+                                            </radialGradient>
+                                        </defs>
+                                        <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGradL)" opacity="0.8"/>
+                                        <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGradL)" opacity="0.6"/>
+                                        <circle cx="100" cy="100" r="18" fill="url(#breathRadialL)" opacity="0.9"/>
+                                    </svg>
+                                </div>
+                                <span class="size-label">64px</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stacked Version -->
+                    <div class="variation-card">
+                        <div class="variation-title">Stacked Version</div>
+                        <div class="variation-desc">For square applications</div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <svg width="60" height="60" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="breathGradStacked" x1="0%" y1="50%" x2="100%" y2="50%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                    <radialGradient id="breathRadialStacked" cx="50%" cy="50%">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="100%" style="stop-color:#526ff5"/>
+                                    </radialGradient>
+                                </defs>
+                                <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGradStacked)" opacity="0.8"/>
+                                <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGradStacked)" opacity="0.6"/>
+                                <circle cx="100" cy="100" r="18" fill="url(#breathRadialStacked)" opacity="0.9"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 20px;">EnrichMed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="backgrounds">
+                    <div class="bg-demo bg-white">
+                        <div class="logo-combo">
+                            <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="breathGradW2" x1="0%" y1="50%" x2="100%" y2="50%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                    <radialGradient id="breathRadialW2" cx="50%" cy="50%">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="100%" style="stop-color:#526ff5"/>
+                                    </radialGradient>
+                                </defs>
+                                <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGradW2)" opacity="0.8"/>
+                                <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGradW2)" opacity="0.6"/>
+                                <circle cx="100" cy="100" r="18" fill="url(#breathRadialW2)" opacity="0.9"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 18px;">EnrichMed</span>
+                        </div>
+                    </div>
+                    <div class="bg-demo bg-dark">
+                        <div class="logo-combo">
+                            <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="breathGradD2" x1="0%" y1="50%" x2="100%" y2="50%">
+                                        <stop offset="0%" style="stop-color:#7FB8E5"/>
+                                        <stop offset="50%" style="stop-color:#526ff5"/>
+                                        <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                    </linearGradient>
+                                    <radialGradient id="breathRadialD2" cx="50%" cy="50%">
+                                        <stop offset="0%" style="stop-color:#ffffff"/>
+                                        <stop offset="100%" style="stop-color:#526ff5"/>
+                                    </radialGradient>
+                                </defs>
+                                <ellipse cx="100" cy="100" rx="60" ry="30" fill="url(#breathGradD2)" opacity="0.8"/>
+                                <ellipse cx="100" cy="100" rx="30" ry="60" fill="url(#breathGradD2)" opacity="0.6"/>
+                                <circle cx="100" cy="100" r="18" fill="url(#breathRadialD2)" opacity="0.9"/>
+                            </svg>
+                            <span class="logo-text" style="font-size: 18px; color: white;">EnrichMed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

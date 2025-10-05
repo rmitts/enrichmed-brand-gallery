@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Preview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+            color: #333;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom-color: #667eea;
+            font-weight: 600;
+        }
+        
+        .palette {
+            padding: 30px;
+        }
+        
+        .palette-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .palette-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #E6E9F5 0%, #D4D9E8 100%);
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .wave-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 20px;
+        }
+        
+        .wave-path {
+            fill: none;
+            stroke-width: 3;
+        }
+        
+        .wave-1 {
+            stroke: #1E3A8A;
+        }
+        
+        .wave-2 {
+            stroke: #3B82F6;
+        }
+        
+        .wave-3 {
+            stroke: #60A5FA;
+        }
+        
+        .palette-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 0;
+        }
+        
+        .palette-description {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin: 5px 0 0;
+        }
+        
+        .color-category {
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 0 0 5px 0;
+        }
+        
+        .category-subtitle {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+        }
+        
+        .category-colors {
+            padding: 15px;
+        }
+        
+        .analysis-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fef7ff 0%, #f3e8ff 100%);
+            border-radius: 12px;
+            border: 1px solid #e9d5ff;
+        }
+        
+        .analysis-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #6b21a8;
+            margin: 0 0 15px 0;
+        }
+        
+        .gradient-flow {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .gradient-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            margin: 0 0 10px 0;
+        }
+        
+        .gradient-colors {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .gradient-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .gradient-arrow {
+            color: #6b7280;
+            font-weight: bold;
+        }
+        
+        .accessibility-notes {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border-left: 4px solid #22c55e;
+        }
+        
+        .accessibility-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #15803d;
+            margin: 0 0 10px 0;
+        }
+        
+        .note-item {
+            font-size: 0.9rem;
+            color: #166534;
+            margin: 5px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .note-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .color-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .color-sample {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-sample::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%);
+            background-size: 10px 10px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .color-sample:hover::before {
+            opacity: 1;
+        }
+        
+        .color-info {
+            padding: 20px;
+            flex-grow: 1;
+            background: white;
+        }
+        
+        .color-code {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            cursor: pointer;
+            user-select: all;
+        }
+        
+        .color-code:hover {
+            color: #667eea;
+        }
+        
+        .color-name {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .color-rgb {
+            font-size: 0.8rem;
+            color: #888;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Color Palette</h1>
+            <p>Click on any color code to copy it to clipboard</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(0)">Original Palette</button>
+            <button class="tab" onclick="switchTab(1)">Blue Gradient</button>
+            <button class="tab" onclick="switchTab(2)">Wave Icon</button>
+        </div>
+        
+        <div class="palette" id="palette">
+            <!-- Colors will be generated by JavaScript -->
+        </div>
+        
+        <div class="footer">
+            <span id="colorCount">7 beautiful colors</span> • Perfect for UI design
+        </div>
+    </div>
+    
+    <div class="copy-notification" id="copyNotification">
+        Color code copied to clipboard!
+    </div>
+
+    <script>
+        const palettes = [
+            {
+                name: "Original Palette",
+                colors: [
+                    '#2a7cff',
+                    '#81a5fd', 
+                    '#6f91ea',
+                    '#e7bffe',
+                    '#2b7fff',
+                    '#62cfff',
+                    '#7fa5ff'
+                ],
+                colorNames: [
+                    'Bright Blue',
+                    'Soft Periwinkle',
+                    'Medium Blue',
+                    'Light Lavender',
+                    'Electric Blue',
+                    'Sky Blue',
+                    'Pale Blue'
+                ],
+                description: "Original vibrant blue palette"
+            },
+            {
+                name: "Blue Gradient",
+                colors: [
+                    '#61C3F0',
+                    '#9AD9F7',
+                    '#0078D4',
+                    '#025BB1'
+                ],
+                colorNames: [
+                    'Light Sky Blue',
+                    'Powder Blue',
+                    'Microsoft Blue',
+                    'Deep Blue'
+                ],
+                description: "Clean gradient progression"
+            },
+            {
+                name: "Wave Icon",
+                colors: [
+                    '#E6E9F5',
+                    '#D4D9E8',
+                    '#C8CEE0',
+                    '#1E3A8A',
+                    '#3B82F6',
+                    '#60A5FA',
+                    '#93C5FD',
+                    '#FFFFFF',
+                    '#2563EB',
+                    '#DBEAFE',
+                    '#B8C2D9',
+                    '#F8FAFC'
+                ],
+                colorNames: [
+                    'Light Lavender Blue',
+                    'Soft Blue Gray',
+                    'Border Accent',
+                    'Deep Royal Blue',
+                    'Vibrant Blue',
+                    'Sky Blue',
+                    'Light Blue',
+                    'Pure White',
+                    'Primary Blue',
+                    'Pale Sky Blue',
+                    'Soft Shadow',
+                    'Highlight White'
+                ],
+                description: "Elegant wave design with depth and shadows",
+                showIcon: true,
+                categories: [
+                    {
+                        title: "Background Colors",
+                        subtitle: "Main background and subtle variations",
+                        colors: ['#E6E9F5', '#D4D9E8', '#C8CEE0'],
+                        names: ['Light Lavender Blue - The main background color of the rounded square', 'Soft Blue Gray - Subtle variations in the background', 'Border Accent - The subtle border/edge coloring']
+                    },
+                    {
+                        title: "Central Wave Element - Base Colors",
+                        subtitle: "Primary wave design elements",
+                        colors: ['#1E3A8A', '#3B82F6', '#60A5FA', '#93C5FD', '#FFFFFF'],
+                        names: ['Deep Royal Blue - The darkest blue in the wave', 'Vibrant Blue - Primary blue tone', 'Sky Blue - Mid-tone blue', 'Light Blue - Lighter blue transitions', 'Pure White - The white flowing sections']
+                    },
+                    {
+                        title: "Shadow & Depth Colors",
+                        subtitle: "Subtle shadows and highlights",
+                        colors: ['#B8C2D9', '#F8FAFC'],
+                        names: ['Soft Shadow - Subtle shadow beneath the wave', 'Highlight - Light reflections on the wave peaks']
+                    }
+                ],
+                gradients: [
+                    {
+                        title: "Primary Gradient Flow (Left to Right)",
+                        colors: ['#1E3A8A', '#3B82F6', '#60A5FA', '#FFFFFF'],
+                        labels: ['Deep Royal Blue', 'Vibrant Blue', 'Sky Blue', 'Pure White']
+                    },
+                    {
+                        title: "Secondary Gradient (Wave Variations)",
+                        colors: ['#2563EB', '#60A5FA', '#DBEAFE'],
+                        labels: ['Primary Blue', 'Sky Blue', 'Pale Sky Blue']
+                    }
+                ],
+                analysis: {
+                    temperature: "Cool (blues and blue-grays)",
+                    saturation: "Medium to high saturation in the wave, low saturation in background",
+                    brightness: "High overall brightness with good contrast",
+                    scheme: "Monochromatic cool color scheme"
+                },
+                accessibility: [
+                    "High contrast between the deep blue (#1E3A8A) and white (#FFFFFF)",
+                    "The background provides sufficient contrast for text overlay",
+                    "WCAG AA compliant color combinations present"
+                ]
+            }
+        ];
+        
+        let currentPalette = 0;
+        
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const notification = document.getElementById('copyNotification');
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            });
+        }
+        
+        function createColorItem(color, name, index) {
+            const rgb = hexToRgb(color);
+            const rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            
+            return `
+                <div class="color-item">
+                    <div class="color-sample" style="background-color: ${color};" onclick="copyToClipboard('${color}')"></div>
+                    <div class="color-info">
+                        <div class="color-name">${name}</div>
+                        <div class="color-code" onclick="copyToClipboard('${color}')">${color.toUpperCase()}</div>
+                        <div class="color-rgb">${rgbString}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createCategorySection(category) {
+            const colorsHtml = category.colors.map((color, index) => 
+                createColorItem(color, category.names[index], index)
+            ).join('');
+            
+            return `
+                <div class="color-category">
+                    <div class="category-header">
+                        <h4 class="category-title">${category.title}</h4>
+                        <p class="category-subtitle">${category.subtitle}</p>
+                    </div>
+                    <div class="category-colors">
+                        ${colorsHtml}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createGradientFlow(gradient) {
+            const colorsHtml = gradient.colors.map((color, index) => {
+                return `
+                    <div class="gradient-color" style="background-color: ${color};" onclick="copyToClipboard('${color}')" title="${gradient.labels[index]}"></div>
+                    ${index < gradient.colors.length - 1 ? '<span class="gradient-arrow">→</span>' : ''}
+                `;
+            }).join('');
+            
+            return `
+                <div class="gradient-flow">
+                    <h5 class="gradient-title">${gradient.title}</h5>
+                    <div class="gradient-colors">
+                        ${colorsHtml}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createAnalysisSection(palette) {
+            if (!palette.analysis) return '';
+            
+            const gradientsHtml = palette.gradients ? palette.gradients.map(createGradientFlow).join('') : '';
+            
+            const accessibilityHtml = palette.accessibility ? `
+                <div class="accessibility-notes">
+                    <h5 class="accessibility-title">Accessibility Notes</h5>
+                    ${palette.accessibility.map(note => `<div class="note-item">${note}</div>`).join('')}
+                </div>
+            ` : '';
+            
+            return `
+                <div class="analysis-section">
+                    <h4 class="analysis-title">Gradient Analysis</h4>
+                    ${gradientsHtml}
+                    
+                    <h4 class="analysis-title">Color Categorization</h4>
+                    <div class="gradient-flow">
+                        <h5 class="gradient-title">Cool Palette Characteristics</h5>
+                        <div style="font-size: 0.9rem; color: #374151; line-height: 1.5;">
+                            <strong>Temperature:</strong> ${palette.analysis.temperature}<br>
+                            <strong>Saturation:</strong> ${palette.analysis.saturation}<br>
+                            <strong>Brightness:</strong> ${palette.analysis.brightness}<br>
+                            <strong>Color Scheme:</strong> ${palette.analysis.scheme}
+                        </div>
+                    </div>
+                    
+                    ${accessibilityHtml}
+                </div>
+            `;
+        }
+        
+        function createPaletteHeader(palette) {
+            if (palette.showIcon) {
+                return `
+                    <div class="palette-header">
+                        <div class="palette-icon">
+                            <img src="data:image/png;base64,${palette.iconData}" alt="Wave Icon" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;" />
+                        </div>
+                        <h3 class="palette-title">Primary Color Palette</h3>
+                        <p class="palette-description">Extracted from elegant wave icon design</p>
+                    </div>
+                `;
+            }
+            return '';
+        }
+        
+        function generatePalette() {
+            const palette = document.getElementById('palette');
+            const currentPal = palettes[currentPalette];
+            
+            if (currentPal.categories) {
+                // Special layout for Wave Icon palette
+                const headerHtml = createPaletteHeader(currentPal);
+                const categoriesHtml = currentPal.categories.map(createCategorySection).join('');
+                const analysisHtml = createAnalysisSection(currentPal);
+                
+                palette.innerHTML = headerHtml + categoriesHtml + analysisHtml;
+                
+                // Update color count
+                document.getElementById('colorCount').textContent = `${currentPal.colors.length} beautiful colors`;
+            } else {
+                // Standard layout for other palettes
+                const currentColors = currentPal.colors;
+                const currentNames = currentPal.colorNames;
+                
+                const headerHtml = createPaletteHeader(currentPal);
+                const colorsHtml = currentColors.map((color, index) => 
+                    createColorItem(color, currentNames[index], index)
+                ).join('');
+                
+                palette.innerHTML = headerHtml + colorsHtml;
+                
+                // Update color count
+                document.getElementById('colorCount').textContent = `${currentColors.length} beautiful colors`;
+            }
+        }
+        
+        function switchTab(paletteIndex) {
+            // Update active tab
+            document.querySelectorAll('.tab').forEach((tab, index) => {
+                tab.classList.toggle('active', index === paletteIndex);
+            });
+            
+            // Update current palette and regenerate
+            currentPalette = paletteIndex;
+            generatePalette();
+        }
+        
+        // Generate the palette when page loads
+        generatePalette();
+    </script>
+</body>
+</html>

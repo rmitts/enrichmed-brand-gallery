@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulmonary Nodule Management: An Interactive Guide</title>
+    <!-- Chosen Palette: Calm Neutrals -->
+    <!-- Application Structure Plan: A dashboard-style, tabbed interface is used over a linear format to better serve clinicians needing quick, non-linear access to reference information. The structure is thematic (Overview, The Problem, Nodule Basics, Clinical Approach, Nodule Types) to group content by clinical relevance, enhancing usability. A user can jump directly to 'Nodule Types' without navigating through introductory content, making the tool efficient for point-of-care questions. Interactive elements like charts and toggles are used to distill complex data and comparisons. -->
+    <!-- Visualization & Content Choices: 
+        - Lung Cancer Deaths: Goal: Compare mortality. Viz: Bar Chart (Chart.js) for clear categorical comparison. Interaction: Hover for tooltips. Justification: High visual impact for a key statistic.
+        - Screening Rate: Goal: Inform on low rates. Viz: Donut Chart (Chart.js) to show part-to-whole relationship. Interaction: Dynamic text in center. Justification: Engaging visual for a single, critical percentage.
+        - Screening Barriers: Goal: Organize qualitative data. Viz: Horizontal Bar Chart (Chart.js) to quantify reasons. Interaction: Hover tooltips. Justification: More digestible than a list, quantifies qualitative feedback.
+        - Nodule Characteristics: Goal: Organize reference data. Viz: Interactive HTML cards. Interaction: Click to reveal details. Justification: Creates an engaging, tactile way to explore definitions.
+        - Solid vs. Subsolid Nodules: Goal: Compare two categories. Viz: Interactive Toggles (HTML/JS) controlling content visibility. Interaction: Click to switch views. Justification: A clear, common UI pattern for direct comparison without clutter.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #403d39;
+        }
+        .tab.active {
+            border-bottom-color: #006d77;
+            color: #006d77;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .info-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .toggle-btn.active {
+            background-color: #006d77;
+            color: #ffffff;
+        }
+        .toggle-btn {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#252422] mb-2">Pulmonary Nodule Management: An Interactive Guide</h1>
+            <p class="text-md text-[#403d39]">Presenter: Kenzie Reich, MSN, APRN, AGCNS-BC</p>
+        </header>
+
+        <nav class="flex justify-center border-b border-gray-300 mb-8 flex-wrap">
+            <button class="tab active text-sm sm:text-base py-4 px-3 sm:px-6 border-b-2 border-transparent transition-colors duration-300" data-tab="overview">Overview</button>
+            <button class="tab text-sm sm:text-base py-4 px-3 sm:px-6 border-b-2 border-transparent transition-colors duration-300" data-tab="problem">The Problem</button>
+            <button class="tab text-sm sm:text-base py-4 px-3 sm:px-6 border-b-2 border-transparent transition-colors duration-300" data-tab="basics">Nodule Basics</button>
+            <button class="tab text-sm sm:text-base py-4 px-3 sm:px-6 border-b-2 border-transparent transition-colors duration-300" data-tab="approach">Clinical Approach</button>
+            <button class="tab text-sm sm:text-base py-4 px-3 sm:px-6 border-b-2 border-transparent transition-colors duration-300" data-tab="types">Nodule Types</button>
+        </nav>
+
+        <main id="tab-content">
+            
+            <section id="overview" class="tab-pane active">
+                 <p class="max-w-3xl mx-auto text-center text-gray-600 mb-10">This section provides an introduction to the importance of managing pulmonary nodules. It outlines the presentation's objectives and presents the stark reality of lung cancer mortality, emphasizing the critical need for early detection and appropriate management by healthcare providers.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-[#006d77] mb-4">Introduction & Objectives</h2>
+                        <div id="introduction-text" class="text-gray-700 space-y-4"></div>
+                        <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Learning Objectives:</h3>
+                        <ul id="objectives-list" class="list-disc list-inside text-gray-700 space-y-2"></ul>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-center mb-4 text-[#006d77]">A Leading Cause of Cancer Death</h2>
+                        <p class="text-center text-sm text-gray-500 mb-2">Estimated Deaths in the US (2021)</p>
+                        <div class="chart-container">
+                            <canvas id="cancerDeathsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                 <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md max-w-4xl mx-auto">
+                    <h3 class="font-bold">Financial Disclosure</h3>
+                    <p>I have no relevant financial relationships to disclose. <span class="text-xs italic">(Per AAFP requirements)</span></p>
+                </div>
+            </section>
+
+            <section id="problem" class="tab-pane hidden">
+                <p class="max-w-3xl mx-auto text-center text-gray-600 mb-10">While most lung nodules are benign, their high rate of incidental discovery presents a significant clinical challenge. This section explores the scope of the problem, highlighting key statistics on nodule occurrence, the alarmingly low rate of lung cancer screening among eligible individuals, and the barriers primary care providers face.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 text-center">
+                    <div class="info-card bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-4xl font-bold text-[#006d77]">25%</h3>
+                        <p class="mt-2 text-gray-600">Incidental lung nodules in people outside high-risk groups (Framingham data).</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-lg shadow-md">
+                         <h3 class="text-4xl font-bold text-[#006d77]">7th</h3>
+                        <p class="mt-2 text-gray-600">Leading cause of cancer death for lung cancer in non-smokers.</p>
+                    </div>
+                     <div class="info-card bg-white p-6 rounded-lg shadow-md md:col-span-2 xl:col-span-1">
+                        <h3 class="text-4xl font-bold text-[#006d77]">130,000+</h3>
+                        <p class="mt-2 text-gray-600">Estimated deaths from lung & bronchus cancer in 2021.</p>
+                    </div>
+                </div>
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mt-10 items-center">
+                    <div class="lg:col-span-2">
+                        <h2 class="text-2xl font-bold text-center mb-4 text-[#006d77]">Low Screening Adherence (2022)</h2>
+                         <div class="chart-container" style="height: 300px; max-height: 300px;">
+                            <canvas id="screeningRateChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                         <h2 class="text-2xl font-bold text-center mb-4 text-[#006d77]">Reported Barriers to Screening</h2>
+                         <div class="chart-container">
+                            <canvas id="barriersChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="basics" class="tab-pane hidden">
+                <p class="max-w-3xl mx-auto text-center text-gray-600 mb-10">Understanding the fundamental definitions and characteristics of pulmonary nodules is the first step in effective management. This section defines the key terminology, distinguishes a nodule from a mass, and provides an overview of the essential radiological features used for characterization.</p>
+                <div class="text-center mb-8">
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <div class="px-6 py-3 bg-white border border-gray-200 rounded-l-lg">
+                            <p class="font-bold text-lg text-[#006d77]">Pulmonary Nodule</p>
+                            <p class="text-gray-600">&lt;30 mm in diameter</p>
+                        </div>
+                         <div class="px-6 py-3 bg-white border-t border-b border-r border-gray-200 rounded-r-lg">
+                            <p class="font-bold text-lg text-red-700">Pulmonary Mass</p>
+                            <p class="text-gray-600">&gt;30 mm in diameter</p>
+                        </div>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-3 italic">A mass &gt;30mm is ominous and requires urgent referral.</p>
+                </div>
+                 <h2 class="text-2xl font-bold text-center mb-6 text-[#006d77]">Key Nodule Characteristics</h2>
+                <div id="characteristics-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </section>
+
+            <section id="approach" class="tab-pane hidden">
+                 <p class="max-w-3xl mx-auto text-center text-gray-600 mb-10">A structured clinical approach is vital for assessing a patient with a pulmonary nodule. This section outlines the critical questions to ask during history taking and provides a comprehensive, categorized list of differential diagnoses, separating the far more common benign causes from the critical malignant possibilities.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-[#006d77] mb-4">A Detailed History is Vital</h2>
+                        <ul id="history-questions" class="list-disc list-inside space-y-3 text-gray-700"></ul>
+                         <p class="mt-4 text-sm text-blue-700 bg-blue-50 p-3 rounded-md"><strong>Clinical Pearl:</strong> Compare with old imaging. A solid or subsolid nodule unchanged for &gt;2 years is very likely benign. Nodules in upper lobes are statistically more likely malignant.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                         <h2 class="text-2xl font-bold text-[#006d77] mb-4">Differential Diagnoses</h2>
+                        <div id="diagnoses-content" class="space-y-4"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="types" class="tab-pane hidden">
+                 <p class="max-w-3xl mx-auto text-center text-gray-600 mb-10">Pulmonary nodules are primarily categorized by their composition on imaging: solid or subsolid. This distinction is critical as it influences risk stratification and management. Use the toggles below to explore the characteristics and common causes of each type.</p>
+                <div class="flex justify-center mb-6">
+                    <button class="toggle-btn active text-lg font-semibold py-2 px-6 rounded-l-lg transition-colors duration-200" data-type="solid">Solid Nodules</button>
+                    <button class="toggle-btn text-lg font-semibold py-2 px-6 rounded-r-lg transition-colors duration-200" data-type="subsolid">Subsolid Nodules</button>
+                </div>
+
+                <div id="nodule-type-content" class="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto">
+                    <div id="solid-content" class="nodule-pane active"></div>
+                    <div id="subsolid-content" class="nodule-pane hidden"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const reportData = {
+        introduction: "Welcome to this presentation on lung nodules for primary care management. My name is Kenzie Reich, I am an adult-gerontology clinical nurse specialist who has been serving in an advanced practice pulmonary specialty role for the last five years. This presentation will review the latest (2023–2025) guidelines on pulmonary nodules, from incidental findings to lung cancer screening, and when to intervene. We'll focus on practical points for primary care, hospitalists, and pulmonary providers, emphasizing early detection and appropriate management.",
+        objectives: [
+            "Define Lung Nodules: Characteristics (solid vs. subsolid, size, margins) and differential diagnoses",
+            "Monitor Lung nodules at the appropriate intervals: Lung cancer screening eligible patients",
+            "Know When to Intervene: Criteria for PET-CT, biopsy, or surgical referral",
+        ],
+        characteristics: [
+            { name: "Size", detail: "The primary determinant of malignancy risk. Larger nodules have a higher probability of being cancerous." },
+            { name: "Shape & Margins", detail: "Smooth, well-defined margins suggest a benign cause. Spiculated or irregular margins are a red flag for malignancy." },
+            { name: "Density", detail: "Includes solid, part-solid, and ground-glass opacities. Certain calcification patterns (e.g., central, popcorn) suggest benignity." },
+            { name: "Location", detail: "Nodules in the upper lobes have a slightly higher statistical likelihood of being malignant than those in lower lobes." },
+            { name: "Growth Rate", detail: "A key indicator. Doubling time is used to assess growth. Rapid growth may suggest infection, while slow, persistent growth is concerning for malignancy." },
+            { name: "Composition", detail: "Categorized as solid or subsolid. This distinction is critical for risk stratification and determining the follow-up plan." }
+        ],
+        historyQuestions: [
+            "Does the patient smoke? (Quantify pack-years)",
+            "What is their career or what are their environmental exposures? (e.g., asbestos)",
+            "Does the patient have infection risk factors? (TB exposure, endemic fungal areas like Ohio/Mississippi River Valleys for histoplasmosis)",
+            "Any history of prior cancer? (Could this be a metastasis)",
+            "Any inflammatory diseases? (e.g., Rheumatoid arthritis, Sarcoidosis)"
+        ],
+        diagnoses: {
+            benign: {
+                title: "Benign Etiologies (Most Common)",
+                items: [
+                    "**Infectious granulomas:** From TB or endemic fungi (Histoplasma). Often calcified.",
+                    "**Inflammatory conditions:** Sarcoidosis, rheumatoid arthritis.",
+                    "**Benign tumors:** Pulmonary hamartomas, which may contain fat and 'popcorn' calcifications.",
+                    "**Other:** Scars, intrapulmonary lymph nodes (often small, smooth perifissural nodules)."
+                ]
+            },
+            malignant: {
+                title: "Malignant Etiologies",
+                items: [
+                    "**Primary lung cancer:** Most concerning, especially adenocarcinoma in smokers presenting as a solitary nodule.",
+                    "**Pulmonary metastases:** From other cancers (colon, kidney, melanoma). Often round and multiple.",
+                    "**Less common:** Carcinoid tumors (neuroendocrine), lymphomas."
+                ]
+            }
+        },
+        noduleTypes: {
+            solid: {
+                title: "Solid Nodules",
+                description: "Homogeneous soft-tissue attenuation. Solid nodules are completely dense on imaging; they are the most commonly detected type and have an intermediate risk profile (malignancy risk increases with size and other features).",
+                causes: [
+                    { type: "Benign", items: ["Infectious granulomas (TB, histoplasmosis)", "Hamartomas", "Rheumatoid nodules"] },
+                    { type: "Malignant", items: ["Primary lung cancer (adenocarcinoma, squamous cell)", "Metastases", "Carcinoid tumor"] }
+                ]
+            },
+            subsolid: {
+                title: "Subsolid Nodules",
+                description: "Subsolid nodules are clinically significant because they are more likely to represent early lung adenocarcinoma, often show indolent growth, and are associated with a lepidic growth pattern.",
+                table: {
+                    headers: ["Type", "Description", "Appearance"],
+                    rows: [
+                        ["Pure Ground-Glass Nodule (pGGN)", "Hazy increased attenuation without obscuring underlying vessels or bronchial structures", "Entirely ground-glass"],
+                        ["Part-Solid Nodule", "Contains both ground-glass and solid components", "Mixed appearance: part hazy, part dense"]
+                    ]
+                }
+            }
+        }
+    };
+
+    function populateContent() {
+        document.getElementById('introduction-text').innerHTML = `<p>${reportData.introduction}</p>`;
+        const objectivesList = document.getElementById('objectives-list');
+        reportData.objectives.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            objectivesList.appendChild(li);
+        });
+
+        const characteristicsGrid = document.getElementById('characteristics-grid');
+        reportData.characteristics.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'info-card bg-white p-6 rounded-lg shadow-md';
+            card.innerHTML = `<h3 class="text-xl font-bold text-[#006d77]">${item.name}</h3><p class="mt-2 text-gray-600">${item.detail}</p>`;
+            characteristicsGrid.appendChild(card);
+        });
+
+        const historyList = document.getElementById('history-questions');
+        reportData.historyQuestions.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = item;
+            historyList.appendChild(li);
+        });
+        
+        const diagnosesDiv = document.getElementById('diagnoses-content');
+        diagnosesDiv.innerHTML = `
+            <div class="bg-green-50 p-4 rounded-md">
+                <h3 class="font-bold text-green-800">${reportData.diagnoses.benign.title}</h3>
+                <ul class="list-disc list-inside text-green-700 mt-2 space-y-1">${reportData.diagnoses.benign.items.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>
+            <div class="bg-red-50 p-4 rounded-md">
+                 <h3 class="font-bold text-red-800">${reportData.diagnoses.malignant.title}</h3>
+                 <ul class="list-disc list-inside text-red-700 mt-2 space-y-1">${reportData.diagnoses.malignant.items.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>`;
+
+        const solidContent = document.getElementById('solid-content');
+        solidContent.innerHTML = `
+            <h3 class="text-2xl font-bold text-[#006d77] mb-3">${reportData.noduleTypes.solid.title}</h3>
+            <p class="mb-4 text-gray-600">${reportData.noduleTypes.solid.description}</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-green-50 p-3 rounded">
+                    <h4 class="font-semibold text-green-800">Common Benign Causes</h4>
+                    <ul class="list-disc list-inside text-sm text-green-700 mt-1">${reportData.noduleTypes.solid.causes[0].items.map(i => `<li>${i}</li>`).join('')}</ul>
+                </div>
+                <div class="bg-red-50 p-3 rounded">
+                    <h4 class="font-semibold text-red-800">Common Malignant Causes</h4>
+                    <ul class="list-disc list-inside text-sm text-red-700 mt-1">${reportData.noduleTypes.solid.causes[1].items.map(i => `<li>${i}</li>`).join('')}</ul>
+                </div>
+            </div>`;
+        
+        const subsolidContent = document.getElementById('subsolid-content');
+        const tableHeaders = reportData.noduleTypes.subsolid.table.headers.map(h => `<th class="p-2 text-left font-semibold text-gray-700">${h}</th>`).join('');
+        const tableRows = reportData.noduleTypes.subsolid.table.rows.map(row => `
+            <tr class="border-t border-gray-200">
+                ${row.map(cell => `<td class="p-2 text-gray-600">${cell}</td>`).join('')}
+            </tr>`).join('');
+        subsolidContent.innerHTML = `
+            <h3 class="text-2xl font-bold text-[#006d77] mb-3">${reportData.noduleTypes.subsolid.title}</h3>
+            <p class="mb-4 text-gray-600">${reportData.noduleTypes.subsolid.description}</p>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead><tr class="bg-gray-100">${tableHeaders}</tr></thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            </div>`;
+    }
+
+    const tabs = document.querySelectorAll('.tab');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const target = tab.getAttribute('data-tab');
+            panes.forEach(pane => {
+                if (pane.id === target) {
+                    pane.classList.remove('hidden');
+                    pane.classList.add('active');
+                } else {
+                    pane.classList.add('hidden');
+                    pane.classList.remove('active');
+                }
+            });
+        });
+    });
+    
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            toggleButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const type = btn.dataset.type;
+            document.querySelectorAll('.nodule-pane').forEach(pane => {
+                 if (pane.id.startsWith(type)) {
+                    pane.classList.remove('hidden');
+                } else {
+                    pane.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 12, family: 'Inter' } } },
+            tooltip: {
+                titleFont: { size: 14, family: 'Inter', weight: 'bold' },
+                bodyFont: { size: 12, family: 'Inter' },
+                backgroundColor: '#403d39',
+            }
+        },
+        scales: {
+            y: { ticks: { font: { family: 'Inter' } } },
+            x: { ticks: { font: { family: 'Inter' } } }
+        }
+    };
+    
+    new Chart(document.getElementById('cancerDeathsChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Lung & Bronchus', 'Colon', 'Breast', 'Prostate'],
+            datasets: [{
+                label: 'Estimated Deaths',
+                data: [130000, 52000, 43000, 34000],
+                backgroundColor: ['#e63946', '#a8dadc', '#457b9d', '#1d3557'],
+                borderColor: '#ffffff',
+                borderWidth: 1
+            }]
+        },
+        options: { ...chartOptions, indexAxis: 'y' }
+    });
+
+    new Chart(document.getElementById('screeningRateChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Screened', 'Not Screened'],
+            datasets: [{
+                data: [16.4, 83.6],
+                backgroundColor: ['#006d77', '#edf6f9'],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: { ...chartOptions, cutout: '60%' }
+    });
+
+    new Chart(document.getElementById('barriersChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Need more follow-up info', 'Need more referral info', 'Inadequate time/staffing'],
+            datasets: [{
+                label: '% of Providers Reporting Barrier',
+                data: [68, 55, 36],
+                backgroundColor: ['#83c5be', '#569f99', '#357c75'],
+                 borderColor: '#ffffff',
+                borderWidth: 1
+            }]
+        },
+        options: { ...chartOptions }
+    });
+    
+    populateContent();
+});
+</script>
+
+</body>
+</html>

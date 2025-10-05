@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnrichMed Symbol Variations Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: #1C1A33;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #526FF5;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .variations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .variation-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .variation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .variation-card.selected {
+            border-color: #526FF5;
+            transform: translateY(-8px);
+        }
+
+        .variation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .variation-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1C1A33;
+        }
+
+        .concept-tag {
+            background: #526FF5;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .symbol-display {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            height: 120px;
+            align-items: center;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .features li {
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .features li:before {
+            content: "•";
+            color: #526FF5;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .detailed-view {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .detailed-view.active {
+            display: block;
+        }
+
+        .detailed-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .detailed-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1C1A33;
+            margin-bottom: 10px;
+        }
+
+        .detailed-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .symbol-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+
+        .controls-panel {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1C1A33;
+        }
+
+        .control-item {
+            margin-bottom: 12px;
+        }
+
+        .control-item label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            padding: 6px 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            padding: 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #526FF5;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .size-showcase {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .size-item {
+            text-align: center;
+        }
+
+        .size-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .animation-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .animation-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .animation-btn.active {
+            background: #526FF5;
+            color: white;
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(-10px); opacity: 0.6; }
+            50% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(10px); opacity: 0.6; }
+        }
+
+        .animated-pulse { animation: pulse 2s ease-in-out infinite; }
+        .animated-rotate { animation: rotate 8s linear infinite; }
+        .animated-breathe { animation: breathe 3s ease-in-out infinite; }
+        .animated-flow { animation: flow 4s ease-in-out infinite; }
+
+        /* Navigation Styles */
+        .navigation {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(82, 111, 245, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 70px;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #1c1a33;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .nav-brand-text {
+            color: #1c1a33;
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            color: #1c1a33;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .nav-dropdown-btn:hover {
+            background: rgba(82, 111, 245, 0.1);
+            color: #526ff5;
+        }
+        
+        .nav-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dropdown:hover .nav-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .nav-dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(82, 111, 245, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .nav-dropdown:hover .nav-dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 4px 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(82, 111, 245, 0.1);
+            color: #526ff5;
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(135deg, #526ff5 0%, #7FB8E5 100%);
+            color: white;
+        }
+        
+        .nav-link.active:hover {
+            background: linear-gradient(135deg, #4158d0 0%, #6ba3d6 100%);
+            transform: translateX(5px);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #526ff5;
+            margin: 3px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .detailed-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .variations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            .nav-brand-text {
+                display: none;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="navLogo" x1="0%" y1="50%" x2="100%" y2="50%">
+                            <stop offset="0%" style="stop-color:#7FB8E5"/>
+                            <stop offset="50%" style="stop-color:#526ff5"/>
+                            <stop offset="100%" style="stop-color:#5DCAE3"/>
+                        </linearGradient>
+                    </defs>
+                    <ellipse cx="100" cy="100" rx="70" ry="35" fill="url(#navLogo)" opacity="0.15"/>
+                    <ellipse cx="100" cy="100" rx="35" ry="70" fill="url(#navLogo)" opacity="0.15"/>
+                    <path d="M 100 40 A 60 60 0 0 1 160 100 L 140 100 A 40 40 0 0 0 100 60 Z" fill="#7FB8E5" opacity="0.9"/>
+                    <path d="M 160 100 A 60 60 0 0 1 100 160 L 100 140 A 40 40 0 0 0 140 100 Z" fill="#5DCAE3" opacity="0.9"/>
+                    <path d="M 100 160 A 60 60 0 0 1 40 100 L 60 100 A 40 40 0 0 0 100 140 Z" fill="#526ff5" opacity="0.9"/>
+                    <path d="M 40 100 A 60 60 0 0 1 100 40 L 100 60 A 40 40 0 0 0 60 100 Z" fill="#64B5F6" opacity="0.9"/>
+                    <path d="M 100 80 L 100 95" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M 100 95 L 88 108 M 100 95 L 112 108" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="100" cy="95" r="5" fill="#ffffff"/>
+                </svg>
+                <span class="nav-brand-text">EnrichMed Brand Gallery</span>
+            </div>
+            <div class="nav-links">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Logo Variations <span class="nav-arrow">▼</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="index.html" class="nav-link">Main Logo Package</a>
+                        <a href="symbol-variations.html" class="nav-link active">Symbol Variations Explorer</a>
+                        <a href="logo symbol exploration.html" class="nav-link">Logo Symbol Exploration</a>
+                        <a href="enrichmed_final_logo_package.html" class="nav-link">Final Logo Package</a>
+                        <a href="hybrid_concept_preview.html" class="nav-link">Hybrid Concept Preview</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Design Tools <span class="nav-arrow">▼</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="Interactive logo design tool .html" class="nav-link">Interactive Design Tool</a>
+                        <a href="Logo Refinement Tool .html" class="nav-link">Logo Refinement Tool</a>
+                        <a href="color_palette_preview.html" class="nav-link">Color Palette Preview</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Concepts <span class="nav-arrow">▼</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="Geometric Growth Hybrid.html" class="nav-link">Geometric Growth Hybrid</a>
+                        <a href="pulmonary_nodule_management.html" class="nav-link">Medical Applications</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>EnrichMed Symbol Variations</h1>
+            <p>Explore six different conceptual approaches for the EnrichMed symbol, each maintaining professional aesthetics while representing different aspects of medical education and pulmonary care.</p>
+        </div>
+
+        <div id="gridView">
+            <div class="variations-grid">
+                <!-- Geometric Flow -->
+                <div class="variation-card" onclick="showDetailed('geometric')">
+                    <div class="variation-header">
+                        <h3>Geometric Flow</h3>
+                        <span class="concept-tag">Networks</span>
+                    </div>
+                    <div class="symbol-display">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#526FF5"/>
+                                    <stop offset="100%" style="stop-color:#7FB8E5"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M20 30 Q40 10 60 30 Q80 50 60 70 Q40 90 20 70 Q10 50 20 30" 
+                                  fill="url(#grad1)" opacity="0.9"/>
+                            <path d="M30 40 Q50 20 70 40 Q90 60 70 80 Q50 100 30 80 Q20 60 30 40" 
+                                  fill="#5DCAE3" opacity="0.7"/>
+                            <circle cx="35" cy="35" r="3" fill="#526FF5"/>
+                            <circle cx="65" cy="35" r="3" fill="#526FF5"/>
+                            <circle cx="50" cy="65" r="3" fill="#526FF5"/>
+                            <line x1="35" y1="35" x2="65" y2="35" stroke="#1C1A33" stroke-width="2" opacity="0.6"/>
+                            <line x1="35" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="2" opacity="0.6"/>
+                            <line x1="65" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="2" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        Interconnected organic shapes suggesting knowledge networks and collaborative learning pathways.
+                    </div>
+                    <ul class="features">
+                        <li>Network connectivity metaphor</li>
+                        <li>Organic, approachable design</li>
+                        <li>Collaborative learning focus</li>
+                        <li>Scalable geometric structure</li>
+                    </ul>
+                </div>
+
+                <!-- Modern Monogram -->
+                <div class="variation-card" onclick="showDetailed('monogram')">
+                    <div class="variation-header">
+                        <h3>Modern Monogram</h3>
+                        <span class="concept-tag">Typography</span>
+                    </div>
+                    <div class="symbol-display">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="gradMono" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#526FF5"/>
+                                    <stop offset="50%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="100%" style="stop-color:#5DCAE3"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- E -->
+                            <rect x="15" y="25" width="25" height="6" fill="#526FF5"/>
+                            <rect x="15" y="25" width="6" height="50" fill="#526FF5"/>
+                            <rect x="15" y="47" width="20" height="6" fill="#526FF5"/>
+                            <rect x="15" y="69" width="25" height="6" fill="#526FF5"/>
+                            <!-- M -->
+                            <rect x="55" y="25" width="6" height="50" fill="url(#gradMono)"/>
+                            <rect x="79" y="25" width="6" height="50" fill="url(#gradMono)"/>
+                            <polygon points="61,25 61,35 70,45 79,35 79,25 73,25 70,28 67,25" fill="url(#gradMono)"/>
+                            <!-- Connection element -->
+                            <circle cx="50" cy="50" r="4" fill="#64B5F6"/>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        Clean E+M letterforms with geometric precision, emphasizing brand recognition and professional credibility.
+                    </div>
+                    <ul class="features">
+                        <li>Strong brand recognition</li>
+                        <li>Professional typography focus</li>
+                        <li>Minimal, clean design</li>
+                        <li>Excellent scalability</li>
+                    </ul>
+                </div>
+
+                <!-- Flowing Waves -->
+                <div class="variation-card" onclick="showDetailed('waves')">
+                    <div class="variation-header">
+                        <h3>Flowing Waves</h3>
+                        <span class="concept-tag">Organic</span>
+                    </div>
+                    <div class="symbol-display">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#526FF5"/>
+                                    <stop offset="33%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="66%" style="stop-color:#5DCAE3"/>
+                                    <stop offset="100%" style="stop-color:#64B5F6"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M10 30 Q30 15 50 30 Q70 45 90 30" stroke="url(#waveGrad)" stroke-width="4" fill="none"/>
+                            <path d="M10 45 Q30 30 50 45 Q70 60 90 45" stroke="url(#waveGrad)" stroke-width="4" fill="none" opacity="0.8"/>
+                            <path d="M10 60 Q30 45 50 60 Q70 75 90 60" stroke="url(#waveGrad)" stroke-width="4" fill="none" opacity="0.6"/>
+                            <circle cx="20" cy="37" r="3" fill="#526FF5" opacity="0.8"/>
+                            <circle cx="50" cy="37" r="3" fill="#7FB8E5" opacity="0.8"/>
+                            <circle cx="80" cy="37" r="3" fill="#5DCAE3" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        Organic curves representing breath and knowledge flow, emphasizing the natural progression of learning.
+                    </div>
+                    <ul class="features">
+                        <li>Breathing metaphor</li>
+                        <li>Flow and progression</li>
+                        <li>Organic, human-centered</li>
+                        <li>Dynamic visual rhythm</li>
+                    </ul>
+                </div>
+
+                <!-- Hexagonal Module -->
+                <div class="variation-card" onclick="showDetailed('hexagon')">
+                    <div class="variation-header">
+                        <h3>Hexagonal Module</h3>
+                        <span class="concept-tag">Scientific</span>
+                    </div>
+                    <div class="symbol-display">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#526FF5"/>
+                                    <stop offset="100%" style="stop-color:#64B5F6"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Central hexagon -->
+                            <polygon points="50,25 65,35 65,55 50,65 35,55 35,35" fill="url(#hexGrad)" stroke="white" stroke-width="2"/>
+                            <!-- Surrounding hexagons -->
+                            <polygon points="35,15 42,19 42,27 35,31 28,27 28,19" fill="#7FB8E5" opacity="0.8"/>
+                            <polygon points="65,15 72,19 72,27 65,31 58,27 58,19" fill="#5DCAE3" opacity="0.8"/>
+                            <polygon points="80,40 87,44 87,52 80,56 73,52 73,44" fill="#64B5F6" opacity="0.8"/>
+                            <polygon points="20,40 27,44 27,52 20,56 13,52 13,44" fill="#7FB8E5" opacity="0.8"/>
+                            <polygon points="35,69 42,73 42,81 35,85 28,81 28,73" fill="#5DCAE3" opacity="0.8"/>
+                            <polygon points="65,69 72,73 72,81 65,85 58,81 58,73" fill="#64B5F6" opacity="0.8"/>
+                            <!-- Connection lines -->
+                            <line x1="50" y1="35" x2="35" y2="23" stroke="#1C1A33" stroke-width="1" opacity="0.4"/>
+                            <line x1="50" y1="35" x2="65" y2="23" stroke="#1C1A33" stroke-width="1" opacity="0.4"/>
+                            <line x1="55" y1="50" x2="73" y2="48" stroke="#1C1A33" stroke-width="1" opacity="0.4"/>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        Scientific precision with molecular-inspired geometry, emphasizing evidence-based methodology.
+                    </div>
+                    <ul class="features">
+                        <li>Scientific precision</li>
+                        <li>Modular system design</li>
+                        <li>Research-focused imagery</li>
+                        <li>Technical credibility</li>
+                    </ul>
+                </div>
+
+                <!-- Ascending Elements -->
+                <div class="variation-card" onclick="showDetailed('ascending')">
+                    <div class="variation-header">
+                        <h3>Ascending Elements</h3>
+                        <span class="concept-tag">Progress</span>
+                    </div>
+                    <div class="symbol-display">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="ascendGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#5DCAE3"/>
+                                    <stop offset="50%" style="stop-color:#7FB8E5"/>
+                                    <stop offset="100%" style="stop-color:#526FF5"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="15" y="70" width="12" height="15" rx="2" fill="#5DCAE3"/>
+                            <rect x="32" y="60" width="12" height="25" rx="2" fill="#64B5F6"/>
+                            <rect x="49" y="45" width="12" height="40" rx="2" fill="#7FB8E5"/>
+                            <rect x="66" y="30" width="12" height="55" rx="2" fill="url(#ascendGrad)"/>
+                            <!-- Progress indicators -->
+                            <circle cx="21" cy="62" r="2" fill="white"/>
+                            <circle cx="38" cy="47" r="2" fill="white"/>
+                            <circle cx="55" cy="25" r="2" fill="white"/>
+                            <circle cx="72" cy="22" r="2" fill="white"/>
+                            <!-- Connection curve -->
+                            <path d="M21 62 Q38 40 55 25 Q66 18 72 22" stroke="#1C1A33" stroke-width="2" fill="none" opacity="0.3"/>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        Growth bars showing progression in education, emphasizing continuous improvement and measurable outcomes.
+                    </div>
+                    <ul class="features">
+                        <li>Progress visualization</li>
+                        <li>Growth and improvement</li>
+                        <li>Performance metrics</li>
+                        <li>Achievement-oriented</li>
+                    </ul>
+                </div>
+
+                <!-- Circular Segments -->
+                <div class="variation-card" onclick="showDetailed('segments')">
+                    <div class="variation-header">
+                        <h3>Circular Segments</h3>
+                        <span class="concept-tag">Modular</span>
+                    </div>
+                    <div class="symbol-display">
+                        <svg width="100" height="100" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="segGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#526FF5"/>
+                                    <stop offset="100%" style="stop-color:#7FB8E5"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Four segments forming complete circle -->
+                            <path d="M50 20 A30 30 0 0 1 80 50 L50 50 Z" fill="#526FF5" opacity="0.9"/>
+                            <path d="M80 50 A30 30 0 0 1 50 80 L50 50 Z" fill="#7FB8E5" opacity="0.8"/>
+                            <path d="M50 80 A30 30 0 0 1 20 50 L50 50 Z" fill="#5DCAE3" opacity="0.8"/>
+                            <path d="M20 50 A30 30 0 0 1 50 20 L50 50 Z" fill="#64B5F6" opacity="0.8"/>
+                            <!-- Center circle -->
+                            <circle cx="50" cy="50" r="8" fill="white" stroke="#1C1A33" stroke-width="2"/>
+                            <!-- Module indicators -->
+                            <circle cx="65" cy="35" r="2" fill="white"/>
+                            <circle cx="65" cy="65" r="2" fill="white"/>
+                            <circle cx="35" cy="65" r="2" fill="white"/>
+                            <circle cx="35" cy="35" r="2" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="description">
+                        Modular components forming a unified whole, representing comprehensive educational modules.
+                    </div>
+                    <ul class="features">
+                        <li>Modular system approach</li>
+                        <li>Comprehensive coverage</li>
+                        <li>Unified learning paths</li>
+                        <li>Complete curriculum</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Views -->
+        <div id="geometricDetailed" class="detailed-view">
+            <button class="back-btn" onclick="showGrid()">← Back to All Variations</button>
+            <div class="detailed-header">
+                <h2>Geometric Flow</h2>
+                <p>Interconnected knowledge networks emphasizing collaborative learning</p>
+            </div>
+            <div class="detailed-content">
+                <div class="symbol-showcase" id="geometricShowcase">
+                    <svg width="200" height="200" viewBox="0 0 100 100" id="geometricSvg">
+                        <defs>
+                            <linearGradient id="geoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#526FF5"/>
+                                <stop offset="100%" style="stop-color:#7FB8E5"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 30 Q40 10 60 30 Q80 50 60 70 Q40 90 20 70 Q10 50 20 30" 
+                              fill="url(#geoGrad1)" opacity="0.9"/>
+                        <path d="M30 40 Q50 20 70 40 Q90 60 70 80 Q50 100 30 80 Q20 60 30 40" 
+                              fill="#5DCAE3" opacity="0.7"/>
+                        <circle cx="35" cy="35" r="3" fill="#526FF5"/>
+                        <circle cx="65" cy="35" r="3" fill="#526FF5"/>
+                        <circle cx="50" cy="65" r="3" fill="#526FF5"/>
+                        <line x1="35" y1="35" x2="65" y2="35" stroke="#1C1A33" stroke-width="2" opacity="0.6"/>
+                        <line x1="35" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="2" opacity="0.6"/>
+                        <line x1="65" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="2" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h4>Animation</h4>
+                        <div class="animation-controls">
+                            <button class="animation-btn active" onclick="setAnimation('geometric', 'none')">Static</button>
+                            <button class="animation-btn" onclick="setAnimation('geometric', 'pulse')">Pulse</button>
+                            <button class="animation-btn" onclick="setAnimation('geometric', 'breathe')">Breathe</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h4>Style</h4>
+                        <div class="control-item">
+                            <label>Color Scheme</label>
+                            <select onchange="updateGeometricColors(this.value)">
+                                <option value="default">Brand Colors</option>
+                                <option value="monochrome">Monochrome</option>
+                                <option value="warm">Warm Gradient</option>
+                            </select>
+                        </div>
+                        <div class="control-item">
+                            <label>Opacity: <span id="geoOpacityValue">90%</span></label>
+                            <input type="range" id="geoOpacity" min="50" max="100" value="90" oninput="updateGeometricOpacity(this.value)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="size-showcase">
+                <div class="size-item">
+                    <div class="size-label">16px (Favicon)</div>
+                    <svg width="16" height="16" viewBox="0 0 100 100">
+                        <path d="M20 30 Q40 10 60 30 Q80 50 60 70 Q40 90 20 70 Q10 50 20 30" fill="#526FF5"/>
+                        <path d="M30 40 Q50 20 70 40 Q90 60 70 80 Q50 100 30 80 Q20 60 30 40" fill="#5DCAE3"/>
+                    </svg>
+                </div>
+                <div class="size-item">
+                    <div class="size-label">32px (Icon)</div>
+                    <svg width="32" height="32" viewBox="0 0 100 100">
+                        <path d="M20 30 Q40 10 60 30 Q80 50 60 70 Q40 90 20 70 Q10 50 20 30" fill="#526FF5"/>
+                        <path d="M30 40 Q50 20 70 40 Q90 60 70 80 Q50 100 30 80 Q20 60 30 40" fill="#5DCAE3"/>
+                        <circle cx="35" cy="35" r="2" fill="#1C1A33"/>
+                        <circle cx="65" cy="35" r="2" fill="#1C1A33"/>
+                        <circle cx="50" cy="65" r="2" fill="#1C1A33"/>
+                    </svg>
+                </div>
+                <div class="size-item">
+                    <div class="size-label">64px (App)</div>
+                    <svg width="64" height="64" viewBox="0 0 100 100">
+                        <path d="M20 30 Q40 10 60 30 Q80 50 60 70 Q40 90 20 70 Q10 50 20 30" fill="#526FF5"/>
+                        <path d="M30 40 Q50 20 70 40 Q90 60 70 80 Q50 100 30 80 Q20 60 30 40" fill="#5DCAE3"/>
+                        <circle cx="35" cy="35" r="3" fill="#1C1A33"/>
+                        <circle cx="65" cy="35" r="3" fill="#1C1A33"/>
+                        <circle cx="50" cy="65" r="3" fill="#1C1A33"/>
+                        <line x1="35" y1="35" x2="65" y2="35" stroke="#1C1A33" stroke-width="1"/>
+                        <line x1="35" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="1"/>
+                        <line x1="65" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div class="size-item">
+                    <div class="size-label">120px (Standard)</div>
+                    <svg width="120" height="120" viewBox="0 0 100 100">
+                        <path d="M20 30 Q40 10 60 30 Q80 50 60 70 Q40 90 20 70 Q10 50 20 30" fill="#526FF5"/>
+                        <path d="M30 40 Q50 20 70 40 Q90 60 70 80 Q50 100 30 80 Q20 60 30 40" fill="#5DCAE3"/>
+                        <circle cx="35" cy="35" r="3" fill="#1C1A33"/>
+                        <circle cx="65" cy="35" r="3" fill="#1C1A33"/>
+                        <circle cx="50" cy="65" r="3" fill="#1C1A33"/>
+                        <line x1="35" y1="35" x2="65" y2="35" stroke="#1C1A33" stroke-width="2"/>
+                        <line x1="35" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="2"/>
+                        <line x1="65" y1="35" x2="50" y2="65" stroke="#1C1A33" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add similar detailed views for other variations -->
+        <div id="monogramDetailed" class="detailed-view">
+            <button class="back-btn" onclick="showGrid()">← Back to All Variations</button>
+            <div class="detailed-header">
+                <h2>Modern Monogram</h2>
+                <p>Clean E+M letterforms emphasizing brand recognition</p>
+            </div>
+            <div class="detailed-content">
+                <div class="symbol-showcase">
+                    <svg width="200" height="200" viewBox="0 0 100 100" id="monogramSvg">
+                        <rect x="15" y="25" width="25" height="6" fill="#526FF5"/>
+                        <rect x="15" y="25" width="6" height="50" fill="#526FF5"/>
+                        <rect x="15" y="47" width="20" height="6" fill="#526FF5"/>
+                        <rect x="15" y="69" width="25" height="6" fill="#526FF5"/>
+                        <rect x="55" y="25" width="6" height="50" fill="#7FB8E5"/>
+                        <rect x="79" y="25" width="6" height="50" fill="#7FB8E5"/>
+                        <polygon points="61,25 61,35 70,45 79,35 79,25 73,25 70,28 67,25" fill="#5DCAE3"/>
+                        <circle cx="50" cy="50" r="4" fill="#64B5F6"/>
+                    </svg>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h4>Typography Style</h4>
+                        <div class="control-item">
+                            <label>Weight</label>
+                            <select onchange="updateMonogramWeight(this.value)">
+                                <option value="normal">Normal</option>
+                                <option value="bold">Bold</option>
+                                <option value="light">Light</option>
+                            </select>
+                        </div>
+                        <div class="control-item">
+                            <label>Connection Element</label>
+                            <select onchange="updateMonogramConnection(this.value)">
+                                <option value="circle">Circle</option>
+                                <option value="square">Square</option>
+                                <option value="diamond">Diamond</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="wavesDetailed" class="detailed-view">
+            <button class="back-btn" onclick="showGrid()">← Back to All Variations</button>
+            <div class="detailed-header">
+                <h2>Flowing Waves</h2>
+                <p>Organic curves representing breath and knowledge flow</p>
+            </div>
+            <div class="detailed-content">
+                <div class="symbol-showcase">
+                    <svg width="200" height="200" viewBox="0 0 100 100" id="wavesSvg">
+                        <path d="M10 30 Q30 15 50 30 Q70 45 90 30" stroke="#526FF5" stroke-width="4" fill="none"/>
+                        <path d="M10 45 Q30 30 50 45 Q70 60 90 45" stroke="#7FB8E5" stroke-width="4" fill="none"/>
+                        <path d="M10 60 Q30 45 50 60 Q70 75 90 60" stroke="#5DCAE3" stroke-width="4" fill="none"/>
+                        <circle cx="20" cy="37" r="3" fill="#526FF5"/>
+                        <circle cx="50" cy="37" r="3" fill="#7FB8E5"/>
+                        <circle cx="80" cy="37" r="3" fill="#5DCAE3"/>
+                    </svg>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h4>Wave Properties</h4>
+                        <div class="control-item">
+                            <label>Wave Count</label>
+                            <select onchange="updateWaveCount(this.value)">
+                                <option value="3" selected>3 Waves</option>
+                                <option value="2">2 Waves</option>
+                                <option value="4">4 Waves</option>
+                            </select>
+                        </div>
+                        <div class="animation-controls">
+                            <button class="animation-btn active" onclick="setAnimation('waves', 'none')">Static</button>
+                            <button class="animation-btn" onclick="setAnimation('waves', 'flow')">Flow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="hexagonDetailed" class="detailed-view">
+            <button class="back-btn" onclick="showGrid()">← Back to All Variations</button>
+            <div class="detailed-header">
+                <h2>Hexagonal Module</h2>
+                <p>Scientific precision with molecular-inspired geometry</p>
+            </div>
+            <div class="detailed-content">
+                <div class="symbol-showcase">
+                    <svg width="200" height="200" viewBox="0 0 100 100" id="hexagonSvg">
+                        <polygon points="50,25 65,35 65,55 50,65 35,55 35,35" fill="#526FF5" stroke="white" stroke-width="2"/>
+                        <polygon points="35,15 42,19 42,27 35,31 28,27 28,19" fill="#7FB8E5"/>
+                        <polygon points="65,15 72,19 72,27 65,31 58,27 58,19" fill="#5DCAE3"/>
+                        <polygon points="80,40 87,44 87,52 80,56 73,52 73,44" fill="#64B5F6"/>
+                        <polygon points="20,40 27,44 27,52 20,56 13,52 13,44" fill="#7FB8E5"/>
+                        <polygon points="35,69 42,73 42,81 35,85 28,81 28,73" fill="#5DCAE3"/>
+                        <polygon points="65,69 72,73 72,81 65,85 58,81 58,73" fill="#64B5F6"/>
+                    </svg>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h4>Module Configuration</h4>
+                        <div class="control-item">
+                            <label>Surrounding Modules</label>
+                            <select onchange="updateHexagonModules(this.value)">
+                                <option value="6" selected>6 Modules</option>
+                                <option value="4">4 Modules</option>
+                                <option value="3">3 Modules</option>
+                            </select>
+                        </div>
+                        <div class="animation-controls">
+                            <button class="animation-btn active" onclick="setAnimation('hexagon', 'none')">Static</button>
+                            <button class="animation-btn" onclick="setAnimation('hexagon', 'rotate')">Rotate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ascendingDetailed" class="detailed-view">
+            <button class="back-btn" onclick="showGrid()">← Back to All Variations</button>
+            <div class="detailed-header">
+                <h2>Ascending Elements</h2>
+                <p>Growth bars showing progression and achievement</p>
+            </div>
+            <div class="detailed-content">
+                <div class="symbol-showcase">
+                    <svg width="200" height="200" viewBox="0 0 100 100" id="ascendingSvg">
+                        <rect x="15" y="70" width="12" height="15" rx="2" fill="#5DCAE3"/>
+                        <rect x="32" y="60" width="12" height="25" rx="2" fill="#64B5F6"/>
+                        <rect x="49" y="45" width="12" height="40" rx="2" fill="#7FB8E5"/>
+                        <rect x="66" y="30" width="12" height="55" rx="2" fill="#526FF5"/>
+                        <circle cx="21" cy="62" r="2" fill="white"/>
+                        <circle cx="38" cy="47" r="2" fill="white"/>
+                        <circle cx="55" cy="25" r="2" fill="white"/>
+                        <circle cx="72" cy="22" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h4>Progress Style</h4>
+                        <div class="control-item">
+                            <label>Bar Count</label>
+                            <select onchange="updateAscendingBars(this.value)">
+                                <option value="4" selected>4 Bars</option>
+                                <option value="3">3 Bars</option>
+                                <option value="5">5 Bars</option>
+                            </select>
+                        </div>
+                        <div class="animation-controls">
+                            <button class="animation-btn active" onclick="setAnimation('ascending', 'none')">Static</button>
+                            <button class="animation-btn" onclick="setAnimation('ascending', 'pulse')">Growth</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="segmentsDetailed" class="detailed-view">
+            <button class="back-btn" onclick="showGrid()">← Back to All Variations</button>
+            <div class="detailed-header">
+                <h2>Circular Segments</h2>
+                <p>Modular components forming comprehensive education</p>
+            </div>
+            <div class="detailed-content">
+                <div class="symbol-showcase">
+                    <svg width="200" height="200" viewBox="0 0 100 100" id="segmentsSvg">
+                        <path d="M50 20 A30 30 0 0 1 80 50 L50 50 Z" fill="#526FF5"/>
+                        <path d="M80 50 A30 30 0 0 1 50 80 L50 50 Z" fill="#7FB8E5"/>
+                        <path d="M50 80 A30 30 0 0 1 20 50 L50 50 Z" fill="#5DCAE3"/>
+                        <path d="M20 50 A30 30 0 0 1 50 20 L50 50 Z" fill="#64B5F6"/>
+                        <circle cx="50" cy="50" r="8" fill="white" stroke="#1C1A33" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <h4>Segment Configuration</h4>
+                        <div class="control-item">
+                            <label>Segment Count</label>
+                            <select onchange="updateSegmentCount(this.value)">
+                                <option value="4" selected>4 Segments</option>
+                                <option value="3">3 Segments</option>
+                                <option value="6">6 Segments</option>
+                            </select>
+                        </div>
+                        <div class="animation-controls">
+                            <button class="animation-btn active" onclick="setAnimation('segments', 'none')">Static</button>
+                            <button class="animation-btn" onclick="setAnimation('segments', 'rotate')">Rotate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDetailed(variation) {
+            document.getElementById('gridView').style.display = 'none';
+            document.getElementById(variation + 'Detailed').classList.add('active');
+        }
+
+        function showGrid() {
+            document.getElementById('gridView').style.display = 'block';
+            document.querySelectorAll('.detailed-view').forEach(view => {
+                view.classList.remove('active');
+            });
+        }
+
+        function setAnimation(variation, type) {
+            const svg = document.getElementById(variation + 'Svg');
+            svg.className = '';
+            
+            const buttons = document.querySelectorAll(`#${variation}Detailed .animation-btn`);
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (type !== 'none') {
+                svg.classList.add('animated-' + type);
+            }
+        }
+
+        function updateGeometricColors(scheme) {
+            const svg = document.getElementById('geometricSvg');
+            const paths = svg.querySelectorAll('path');
+            
+            if (scheme === 'monochrome') {
+                paths[0].setAttribute('fill', '#1C1A33');
+                paths[1].setAttribute('fill', '#64748b');
+            } else if (scheme === 'warm') {
+                paths[0].setAttribute('fill', '#F59E0B');
+                paths[1].setAttribute('fill', '#EF4444');
+            } else {
+                paths[0].setAttribute('fill', 'url(#geoGrad1)');
+                paths[1].setAttribute('fill', '#5DCAE3');
+            }
+        }
+
+        function updateGeometricOpacity(value) {
+            document.getElementById('geoOpacityValue').textContent = value + '%';
+            const svg = document.getElementById('geometricSvg');
+            svg.style.opacity = value / 100;
+        }
+
+        // Add more update functions for other variations...
+        function updateMonogramWeight(weight) {
+            const svg = document.getElementById('monogramSvg');
+            const rects = svg.querySelectorAll('rect');
+            const widthMultiplier = weight === 'bold' ? 1.2 : weight === 'light' ? 0.8 : 1;
+            
+            rects.forEach(rect => {
+                const currentWidth = parseInt(rect.getAttribute('width'));
+                rect.setAttribute('width', Math.max(2, currentWidth * widthMultiplier));
+            });
+        }
+
+        function updateMonogramConnection(type) {
+            const svg = document.getElementById('monogramSvg');
+            const existing = svg.querySelector('circle, rect:last-child, polygon:last-child');
+            if (existing && existing.getAttribute('cx')) existing.remove();
+            
+            if (type === 'circle') {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', '50');
+                circle.setAttribute('cy', '50');
+                circle.setAttribute('r', '4');
+                circle.setAttribute('fill', '#64B5F6');
+                svg.appendChild(circle);
+            } else if (type === 'square') {
+                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('x', '46');
+                rect.setAttribute('y', '46');
+                rect.setAttribute('width', '8');
+                rect.setAttribute('height', '8');
+                rect.setAttribute('fill', '#64B5F6');
+                svg.appendChild(rect);
+            } else if (type === 'diamond') {
+                const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                polygon.setAttribute('points', '50,44 54,50 50,56 46,50');
+                polygon.setAttribute('fill', '#64B5F6');
+                svg.appendChild(polygon);
+            }
+        }
+
+        // Add click handlers for variation cards
+        document.querySelectorAll('.variation-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.variation-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Mobile menu toggle functionality
+        function toggleMobileMenu() {
+            // This is a placeholder for mobile menu functionality
+            // In a full implementation, you'd toggle a mobile menu here
+            alert('Mobile menu functionality can be implemented here');
+        }
+        
+        // Add active state to navigation based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
