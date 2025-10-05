@@ -29,7 +29,7 @@ Welcome to the EnrichMed Brand Gallery - a comprehensive showcase of logo design
 
 ## 🚀 Live Demo
 
-Visit the live site at: https://[your-username].github.io/[repository-name]
+Visit the live site at: **https://rmitts.github.io/enrichmed-brand-gallery/**
 
 ## 💻 Local Development
 
